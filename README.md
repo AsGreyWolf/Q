@@ -1,1 +1,1 @@
-LOLOLOLkdlasjfkjasdkjfkjasdhfjkashdfhasdkjghkdsa
+Созданы папки клиента! Загрузка клиента и первая отрисовка и движения
