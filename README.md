@@ -1,1 +1,1 @@
-LOLOLOLkdlasjfkjasdkjfkjasdhfjkashdfhasdkjghkdsa
+Добавил первую загрузочную функцию клиента
