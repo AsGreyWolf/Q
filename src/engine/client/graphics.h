@@ -2,13 +2,18 @@
 #define _GRAPHICS_H_
  
 #include <SDL.h>
-#include "gl.h"
-#include "glu.h"
- 
-class graphics
+#include <stdio.h>
+#include <stdlib.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+
+class Graphics
 {
     public:
-       GLuint* loadimage(char* filename,GLuint* image);
-       graphics();
+GLuint* image1;
+       int loadimage(char* filename,GLuint* image);
+int Init( );
+int drawGLScene( );
+       Graphics();
 };
 #endif

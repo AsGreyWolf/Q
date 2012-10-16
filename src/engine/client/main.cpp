@@ -27,6 +27,7 @@ int mainmain::Execute()
 	 
 	   	 
 	    while(Running) {
+		Graphics()->drawGLScene( );
 		 SDL_Event Event;
 		 while(SDL_PollEvent(&Event)) {
 		       if (Event.type == SDL_QUIT){ 
@@ -42,7 +43,7 @@ int mainmain::Execute()
 int main(int argc, char* argv[]) 
 {
 	mainmain main0;
- 
+	Graphics()->Init();
 	return main0.Execute();
 }
 void mainmain::Cleanup()
