@@ -16,7 +16,7 @@ bool mainmain::Init()
 	if((Screen = SDL_SetVideoMode(640, 480, 32, SDL_HWSURFACE | SDL_DOUBLEBUF)) == NULL) {
         return false;
 	} 
-    
+    	SDL_WM_SetCaption("ololo game","v1");
 	return true;
 }
 int mainmain::Execute() 
@@ -47,9 +47,8 @@ void mainmain::Cleanup()
 {
 	SDL_Quit();
 }
-void mainmain::Event(SDL_Event* Event) {
-    if(Event->type == SDL_QUIT) {
-        Running = false;
-    }
+void mainmain::Event(SDL_Event Event) 
+{
+	
 }
 #endif

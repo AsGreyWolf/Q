@@ -10,7 +10,7 @@ class mainmain
        int Execute();
 	bool Init();
 	void Cleanup();
-	void Event(SDL_Event* Event);
+	void Event(SDL_Event Event);
     private:
 	SDL_Surface*    Screen;
        bool Running;
