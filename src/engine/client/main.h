@@ -3,10 +3,10 @@
  
 #include <SDL.h>
  
-class main 
+class mainmain 
 {
     public:
-       main();
+       mainmain();
        int Execute();
 	bool Init();
 	void Cleanup();
