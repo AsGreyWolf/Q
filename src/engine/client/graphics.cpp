@@ -8,7 +8,7 @@ graphics::graphics()
 }
 graphics::loadimage(char* filename, GLuint* image){
 	AUX_RGBImageRec *texture1;
-	texture1 = auxDIBImageLoad("filename");
+	texture1 = auxDIBImageLoad(filename);
 	glGenTextures(1, &image);
 	glBindTexture(GL_TEXTURE_2D, image);
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
