@@ -13,7 +13,7 @@ class Graphics
 GLuint* image1;
        int loadimage(char* filename,GLuint* image);
 int Init( );
-int drawGLScene( );
+int drawGLScene( ); 
        Graphics();
 };
 #endif
