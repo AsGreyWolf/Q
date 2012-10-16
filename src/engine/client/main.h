@@ -1,5 +1,5 @@
 #ifndef _MAIN_H_
-#define _MAIN_H_  
+#define _MAIN_H_ 
 #include "graphics.h"
 #include <SDL.h>
  

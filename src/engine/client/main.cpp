@@ -19,7 +19,7 @@ bool mainmain::Init()
     	SDL_WM_SetCaption("ololo game","v1");
 	return true;
 }
-int mainmain::Execute() 
+int mainmain::Execute()
 {
 	if(Init() == false) {
 		 return -1;
