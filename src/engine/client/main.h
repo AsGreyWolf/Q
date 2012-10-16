@@ -10,7 +10,7 @@ class mainmain
        int Execute();
 	bool Init();
 	void Cleanup();	
-	class Graphics *Graphics() {return Graphics};
+	class Graphics *Graphics() {return Graphics}; 
     private:
 	class Graphics *Graphics;
 	SDL_Surface*    Screen;

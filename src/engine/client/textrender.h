@@ -6,7 +6,7 @@
 #include "glu.h"
  
 class TextRender
-{
+{ 
     public:
        GLuint* loadimage(char* filename,GLuint* image);
        graphics();
