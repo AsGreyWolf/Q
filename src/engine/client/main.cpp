@@ -43,7 +43,7 @@ int mainmain::Execute()
 int main(int argc, char* argv[]) 
 {
 	mainmain main0;
-	Graphics()->Init();
+	main0.Graphics()->Init();
 	return main0.Execute();
 }
 void mainmain::Cleanup()
