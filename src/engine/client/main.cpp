@@ -29,7 +29,7 @@ int mainmain::Execute()
 	    while(Running) {
 		 SDL_Event Event;
 		 while(SDL_PollEvent(&Event)) {
-		       if ( Event.type == SDL_QUIT ){ 
+		       if (Event.type == SDL_QUIT){ 
       				Running = false; 
      			}
 		 }	 
