@@ -2,12 +2,12 @@
 #define _MAIN_CPP_
 #include "main.h"
  
-main::main() 
+mainmain::mainmain() 
 {
 	Screen = NULL;
 	Running = true;
 }
-bool main::Init()
+bool mainmain::Init()
 {
 	if(SDL_Init(SDL_INIT_EVERYTHING) > 0) {
         return false;
@@ -19,7 +19,7 @@ bool main::Init()
     
 	return true;
 }
-int main::Execute() 
+int mainmain::Execute() 
 {
 	if(Init() == false) {
 		 return -1;
@@ -39,15 +39,15 @@ int main::Execute()
  
 int main(int argc, char* argv[]) 
 {
-	main main;
+	mainmain main0;
  
-	return main.Execute();
+	return main0.Execute();
 }
-void main::Cleanup()
+void mainmain::Cleanup()
 {
 	SDL_Quit();
 }
-void main::Event(SDL_Event* Event) {
+void mainmain::Event(SDL_Event* Event) {
     if(Event->type == SDL_QUIT) {
         Running = false;
     }
