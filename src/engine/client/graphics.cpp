@@ -152,7 +152,7 @@ int Graphics::drawGLScene( )
     }
     return( TRUE );
 }
-int Graphics::Init( ) 
+int Graphics::Init( )  
 {
 
     /* Load in the texture */

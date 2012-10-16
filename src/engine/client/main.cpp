@@ -1,5 +1,5 @@
 #ifndef _MAIN_CPP_
-#define _MAIN_CPP_
+#define _MAIN_CPP_ 
 #include "main.h"
  
 mainmain::mainmain() 
