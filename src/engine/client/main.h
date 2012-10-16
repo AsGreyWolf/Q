@@ -9,8 +9,7 @@ class mainmain
        mainmain();
        int Execute();
 	bool Init();
-	void Cleanup();
-	
+	void Cleanup();	
     private:
 	SDL_Surface*    Screen;
        bool Running;
