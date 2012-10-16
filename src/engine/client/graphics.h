@@ -8,7 +8,7 @@
 class graphics
 {
     public:
-       loadimage(char* filename,GLuint* image);
+       GLuint* loadimage(char* filename,GLuint* image);
        graphics();
 };
 #endif
