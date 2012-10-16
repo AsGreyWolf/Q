@@ -25,11 +25,13 @@ int mainmain::Execute()
 		 return -1;
 	    }
 	 
-	    SDL_Event Event;
-	 
+	   	 
 	    while(Running) {
+		 SDL_Event Event;
 		 while(SDL_PollEvent(&Event)) {
-		     Event(&Event);
+		       if ( Event.type == SDL_QUIT ){ 
+      				Running = false; 
+     			}
 		 }	 
 		
 	    }
@@ -47,8 +49,5 @@ void mainmain::Cleanup()
 {
 	SDL_Quit();
 }
-void mainmain::Event(SDL_Event Event) 
-{
-	
-}
+
 #endif
