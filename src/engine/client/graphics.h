@@ -12,8 +12,9 @@ class Graphics
     public:
 GLuint* image1;
        int loadimage(char* filename,GLuint* image);
-int Init( );
-int drawGLScene( ); 
+int Init(  );
+int drawGLScene(  ); 
        Graphics();
+int resizeWindow( int width, int height );
 };
 #endif

@@ -1,7 +1,7 @@
 #ifndef _MAIN_CPP_
 #define _MAIN_CPP_ 
 #include "main.h"
- 
+
 mainmain::mainmain() 
 {
 	Screen = NULL;
@@ -25,9 +25,9 @@ int mainmain::Execute()
 		 return -1;
 	    }
 	 
-	   	 
+	   	Graphics *m_pGraphics; 
 	    while(Running) {
-		Graphics()->drawGLScene( );
+		m_pGraphics->drawGLScene( );
 		 SDL_Event Event;
 		 while(SDL_PollEvent(&Event)) {
 		       if (Event.type == SDL_QUIT){ 
@@ -43,12 +43,12 @@ int mainmain::Execute()
 int main(int argc, char* argv[]) 
 {
 	mainmain main0;
-	main0.Graphics()->Init();
+Graphics *m_pGraphics;
+	m_pGraphics->Init();
 	return main0.Execute();
 }
 void mainmain::Cleanup()
 {
 	SDL_Quit();
 }
-
 #endif

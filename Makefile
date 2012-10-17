@@ -5,8 +5,8 @@ CC = g++
 
 
 all:
-	$(CC) $(CFLAGS) -c src/engine/client/main.cpp -o game.o
-	$(CC) -o $(TARGET) game.o $(LIBS)
+	$(CC) $(CFLAGS) src/engine/client/main.cpp -o game.o
+	$(CC) -o $(TARGET) game.o$(LIBS)
 	strip $(TARGET)
 clean:
 	rm *.o 

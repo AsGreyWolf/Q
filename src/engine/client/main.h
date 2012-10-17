@@ -3,16 +3,16 @@
 #include "graphics.h"
 #include <SDL.h>
  
+
 class mainmain 
 {
     public:
        mainmain();
        int Execute();
 	bool Init();
-	void Cleanup();	
-	class Graphics *Graphics() {return Graphics}; 
+	void Cleanup();		
+
     private:
-	class Graphics *Graphics;
 	SDL_Surface*    Screen;
        bool Running;
 };
