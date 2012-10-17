@@ -1,5 +1,5 @@
 TARGET = game
-LIBS = `sdl-config --libs`
+LIBS = `sdl-config --libs` -lGL -lGLU
 CFLAGS = -O3 `sdl-config --cflags`
 CC = g++
 
