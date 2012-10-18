@@ -5,7 +5,7 @@
 mainmain::mainmain() 
 {
 	Screen = NULL;
-	Running = true;
+	Running = false;
 } 
 void mainmain::Quit( int returnCode )
 {
@@ -77,15 +77,15 @@ bool mainmain::Init()
 }
 int mainmain::Execute()
 {
-	if(Init() == false) 
+	if(Init() == false && Running == false ) 
 		 return -1;
 	    	
 	//if(m_pGraphics->Init() == 0) 
 	//	 return -1;
 	    
-	 if(m_pText->Init() == 0)
+	 if(m_pText->Init() == 0 && Running == false )
 		return -1;
- 	
+ 	Running = true;
 	    while(Running) {
 		//m_pGraphics->drawGLScene( );
 		 SDL_Color clr = {255,50,40,0};
