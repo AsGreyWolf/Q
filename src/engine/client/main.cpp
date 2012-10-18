@@ -60,8 +60,7 @@ bool mainmain::Init()
     SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
 
     /* get a SDL surface */
-    Screen = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP,
-				videoFlags );
+    Screen = SDL_SetVideoMode(640,480,32,SDL_HWSURFACE|SDL_DOUBLEBUF); 
 
     /* Verify there is a surface */
     if ( !Screen )
@@ -85,11 +84,17 @@ int mainmain::Execute()
 	    
 	 if(m_pText->Init() == 0 && Running == false )
 		return -1;
- 	Running = true;
-		 SDL_Color clr = {255,50,40,100};
-		 SDL_Rect dest = {80, 120,0,0};
-m_pText->print_ttf(Screen, "SDL_ttf example", "data/courier.ttf", 46, clr, dest);
-	SDL_Flip(Screen);
+
+ 		Running = true;
+		SDL_Color clr;
+ 		SDL_Rect dest;
+		clr.r = 255;
+		clr.g = 255;
+		clr.b = 0;
+		dest.x = 80;
+		dest.y = 250;
+		m_pText->print_ttf(Screen, "SDL_ttf example", "data/courier.ttf", 46, clr, dest);
+		SDL_Flip(Screen);
 
 	    while(Running) {
 		//m_pGraphics->drawGLScene( );
