@@ -4,6 +4,7 @@
 int TextRender::Init()
 {
 	TTF_Init();
+	atexit(TTF_Quit);
 	return 1;
 }
 void TextRender::print_ttf(SDL_Surface *sDest, char* message, char* font, int size, SDL_Color color, SDL_Rect dest)
