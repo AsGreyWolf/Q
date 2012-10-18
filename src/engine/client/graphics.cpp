@@ -1,11 +1,12 @@
-#ifndef _GRAPHICS_H_
-#define _GRAPHICS_H_
+#ifndef _GRAPHICS_CPP_
+#define _GRAPHICS_CPP_
 #include "graphics.h"
  
 Graphics::Graphics()
 {
 
 }
+
 int Graphics::resizeWindow( int width, int height )
 {
     /* Height / width ration */
@@ -38,7 +39,7 @@ int Graphics::resizeWindow( int width, int height )
 
     return( TRUE );
 }
-int Graphics::LoadImage(char* filename,GLuint* image)
+int Graphics::LoadImage(char* filename,GLuint image)
 {
     /* Status indicator */
     int Status = FALSE;
@@ -47,7 +48,11 @@ int Graphics::LoadImage(char* filename,GLuint* image)
     SDL_Surface *TextureImage[1]; 
 
     /* Load The Bitmap, Check For Errors, If Bitmap's Not Found Quit */
-    if ( ( TextureImage[0] = SDL_LoadBMP( filename ) ) )
+if(!( TextureImage[0] = SDL_LoadBMP( filename) )){
+printf("can't load texture");
+}
+
+    else 
         {
 
 	    /* Set the status to true */
@@ -63,12 +68,11 @@ int Graphics::LoadImage(char* filename,GLuint* image)
 	    glTexImage2D( GL_TEXTURE_2D, 0, 3, TextureImage[0]->w,
 			  TextureImage[0]->h, 0, GL_BGR,
 			  GL_UNSIGNED_BYTE, TextureImage[0]->pixels );
-
 	    /* Linear Filtering */
+
 	    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
 	    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
         }
-
     /* Free up any memory we may have used */
     if ( TextureImage[0] )
 	    SDL_FreeSurface( TextureImage[0] );
@@ -96,7 +100,7 @@ int Graphics::drawGLScene( )
     glRotatef( 0.0f, 0.0f, 0.0f, 1.0f); /* Rotate On The Z Axis */
 
     /* Select Our Texture */
-    glBindTexture( GL_TEXTURE_2D, image1 );
+    glBindTexture( GL_TEXTURE_2D, images[0] );
 
     /* NOTE:
      *   The x coordinates of the glTexCoord2f function need to inverted
@@ -185,70 +189,12 @@ int Graphics::drawGLScene( )
 }
 int Graphics::Init( )  
 {
+
 /* Flags to pass to SDL_SetVideoMode */
-    int videoFlags;
-    /* main loop variable */
-    int done = FALSE;
-    /* used to collect events */
-    SDL_Event event;
-    /* this holds some info about our display */
-    const SDL_VideoInfo *videoInfo;
-    /* whether or not the window is active */
-    int isActive = TRUE;
-
-    /* initialize SDL */
-    if ( SDL_Init( SDL_INIT_VIDEO ) < 0 )
-	{
-	    fprintf( stderr, "Video initialization failed: %s\n",
-		     SDL_GetError( ) );
-	    Quit( 1 );
-	}
-
-    /* Fetch the video info */
-    videoInfo = SDL_GetVideoInfo( );
-
-    if ( !videoInfo )
-	{
-	    fprintf( stderr, "Video query failed: %s\n",
-		     SDL_GetError( ) );
-	    Quit( 1 );
-	}
-
-    /* the flags to pass to SDL_SetVideoMode */
-    videoFlags  = SDL_OPENGL;          /* Enable OpenGL in SDL */
-    videoFlags |= SDL_GL_DOUBLEBUFFER; /* Enable double buffering */
-    videoFlags |= SDL_HWPALETTE;       /* Store the palette in hardware */
-    videoFlags |= SDL_RESIZABLE;       /* Enable window resizing */
-
-    /* This checks to see if surfaces can be stored in memory */
-    if ( videoInfo->hw_available )
-	videoFlags |= SDL_HWSURFACE;
-    else
-	videoFlags |= SDL_SWSURFACE;
-
-    /* This checks if hardware blits can be done */
-    if ( videoInfo->blit_hw )
-	videoFlags |= SDL_HWACCEL;
-
-    /* Sets up OpenGL double buffering */
-    SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
-
-    /* get a SDL surface */
-    surface = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP,
-				videoFlags );
-
-    /* Verify there is a surface */
-    if ( !surface )
-	{
-	    fprintf( stderr,  "Video mode set failed: %s\n", SDL_GetError( ) );
-	    Quit( 1 );
-	}
-
-    /* initialize OpenGL */
-    /* Load in the texture */
-    if ( !LoadImage("data/images/kilobok.bmp", image1) )
+    
+//printf("initted");
+    if ( !LoadImage((char*)"data/images/kolobok.bmp", images[0]) )
 	return FALSE;
-
     /* Enable Texture Mapping ( NEW ) */
     glEnable( GL_TEXTURE_2D );
 
@@ -266,11 +212,11 @@ int Graphics::Init( )
 
     /* The Type Of Depth Test To Do */
     glDepthFunc( GL_LEQUAL );
-
     /* Really Nice Perspective Calculations */
     glHint( GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST );
- resizeWindow( SCREEN_WIDTH, SCREEN_HEIGHT );
 
+ resizeWindow( SCREEN_WIDTH, SCREEN_HEIGHT );
+ 
     return( TRUE );
 }
 #endif

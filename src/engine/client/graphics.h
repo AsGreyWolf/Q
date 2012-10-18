@@ -7,14 +7,30 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 
+	#define SCREEN_WIDTH  640
+#define SCREEN_HEIGHT 480
+#define SCREEN_BPP     16
+
+/* Set up some booleans */
+#define TRUE  1
+#define FALSE 0
+
 class Graphics
 {
     public:
-GLuint* image1;
-       int loadimage(char* filename,GLuint* image);
-int Init(  );
-int drawGLScene(  ); 
+
+
+/* This is our SDL surface */
+SDL_Surface *surface;
+
+GLfloat xrot; /* X Rotation ( NEW ) */
+GLfloat yrot; /* Y Rotation ( NEW ) */
+GLfloat zrot; /* Z Rotation ( NEW ) */
+	GLuint images[1];
+       int LoadImage(char* filename,GLuint image);
+	int Init(  );
+	int drawGLScene(  ); 
        Graphics();
-int resizeWindow( int width, int height );
+	int resizeWindow( int width, int height );
 };
 #endif

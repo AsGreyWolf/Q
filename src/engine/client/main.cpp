@@ -7,15 +7,70 @@ mainmain::mainmain()
 	Screen = NULL;
 	Running = true;
 } 
-bool mainmain::Init() 
+void mainmain::Quit( int returnCode )
 {
-	if(SDL_Init(SDL_INIT_EVERYTHING) > 0) {
-        return false;
+    /* clean up the window */
+    SDL_Quit( );
+
+    /* and exit appropriately */
+    exit( returnCode );
+}
+bool mainmain::Init() 
+{int videoFlags;
+    /* this holds some info about our display */
+    const SDL_VideoInfo *videoInfo;
+
+    /* initialize SDL */
+
+    if ( SDL_Init( SDL_INIT_EVERYTHING ) < 0 )
+	{
+	    fprintf( stderr, "SDL initialization failed: %s\n",
+		     SDL_GetError( ) );
+	    Quit( 1 );
 	}
- 
-	if((Screen = SDL_SetVideoMode(640, 480, 32, SDL_HWSURFACE | SDL_DOUBLEBUF)) == NULL) {
-        return false;
-	} 
+
+    /* Fetch the video info */
+    videoInfo = SDL_GetVideoInfo( );
+
+    if ( !videoInfo )
+	{
+	    fprintf( stderr, "Video query failed: %s\n",
+		     SDL_GetError( ) );
+	    Quit( 1 );
+	}
+
+    /* the flags to pass to SDL_SetVideoMode */
+    videoFlags  = SDL_OPENGL;          /* Enable OpenGL in SDL */
+    videoFlags |= SDL_GL_DOUBLEBUFFER; /* Enable double buffering */
+    videoFlags |= SDL_HWPALETTE;       /* Store the palette in hardware */
+    videoFlags |= SDL_RESIZABLE;       /* Enable window resizing */
+
+    /* This checks to see if surfaces can be stored in memory */
+    if ( videoInfo->hw_available )
+	videoFlags |= SDL_HWSURFACE;
+    else
+	videoFlags |= SDL_SWSURFACE;
+
+    /* This checks if hardware blits can be done */
+    if ( videoInfo->blit_hw )
+	videoFlags |= SDL_HWACCEL;
+
+    /* Sets up OpenGL double buffering */
+    SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
+
+    /* get a SDL surface */
+    Screen = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP,
+				videoFlags );
+
+    /* Verify there is a surface */
+    if ( !Screen )
+	{
+	    fprintf( stderr,  "Video mode set failed: %s\n", SDL_GetError( ) );
+	    Quit( 1 );
+	}
+
+    /* initialize OpenGL */
+    /* Load in the texture */
     	SDL_WM_SetCaption("ololo game","v1");
 	return true;
 }
@@ -23,9 +78,11 @@ int mainmain::Execute()
 {
 	if(Init() == false) {
 		 return -1;
+	    }	
+if(m_pGraphics->Init() == 0) {
+		 return -1;
 	    }
-	 
-	   	Graphics *m_pGraphics; 
+	   	
 	    while(Running) {
 		m_pGraphics->drawGLScene( );
 		 SDL_Event Event;
@@ -43,8 +100,8 @@ int mainmain::Execute()
 int main(int argc, char* argv[]) 
 {
 	mainmain main0;
-Graphics *m_pGraphics;
-	m_pGraphics->Init();
+
+	
 	return main0.Execute();
 }
 void mainmain::Cleanup()
