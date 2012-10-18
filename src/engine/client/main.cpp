@@ -80,19 +80,22 @@ int mainmain::Execute()
 	if(Init() == false) 
 		 return -1;
 	    	
-	if(m_pGraphics->Init() == 0) 
-		 return -1;
+	//if(m_pGraphics->Init() == 0) 
+	//	 return -1;
 	    
 	 if(m_pText->Init() == 0)
 		return -1;
  	
 	    while(Running) {
-		m_pGraphics->drawGLScene( );
+		//m_pGraphics->drawGLScene( );
+		 SDL_Color clr = {255,50,40,0};
+		 SDL_Rect dest = {80, 120,0,0};
+		 m_pText->print_ttf(Screen, "SDL_ttf example", "DejaVu Sans.ttf", 46, clr, dest);
 		 SDL_Event Event;
 		 while(SDL_PollEvent(&Event)) {
 		       if (Event.type == SDL_QUIT){ 
       				Running = false;
-     			}
+     			}	
 		 }	 
 		
 	    }
