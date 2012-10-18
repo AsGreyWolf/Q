@@ -2,13 +2,14 @@
 #define _TEXTRENDER_H_
 
 #include <SDL.h>
-#include "gl.h"
-#include "glu.h"
+#include <SDL_ttf.h>
+
  
 class TextRender
 { 
     public:
-       GLuint* loadimage(char* filename,GLuint* image);
-       graphics();
+	int Init();
+	void TextRender_Exit();
+	void print_ttf(SDL_Surface *sDest, char* message, char* font, int size, SDL_Color color, SDL_Rect dest);
 };
 #endif

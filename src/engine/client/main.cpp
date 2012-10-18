@@ -11,12 +11,13 @@ void mainmain::Quit( int returnCode )
 {
     /* clean up the window */
     SDL_Quit( );
-
+    m_pText->TextRender_Exit();
     /* and exit appropriately */
     exit( returnCode );
 }
 bool mainmain::Init() 
-{int videoFlags;
+{
+	int videoFlags;
     /* this holds some info about our display */
     const SDL_VideoInfo *videoInfo;
 
@@ -76,13 +77,15 @@ bool mainmain::Init()
 }
 int mainmain::Execute()
 {
-	if(Init() == false) {
+	if(Init() == false) 
 		 return -1;
-	    }	
-if(m_pGraphics->Init() == 0) {
+	    	
+	if(m_pGraphics->Init() == 0) 
 		 return -1;
-	    }
-	   	
+	    
+	 if(m_pText->Init() == 0)
+		return -1;
+ 	
 	    while(Running) {
 		m_pGraphics->drawGLScene( );
 		 SDL_Event Event;
@@ -107,5 +110,6 @@ int main(int argc, char* argv[])
 void mainmain::Cleanup()
 {
 	SDL_Quit();
+	m_pText->TextRender_Exit();
 }
 #endif

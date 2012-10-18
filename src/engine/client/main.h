@@ -2,7 +2,7 @@
 #define _MAIN_H_  
 #include "graphics.h"
 #include <SDL.h>
- 
+#include "textrender.h"
 
 class mainmain 
 {
@@ -10,9 +10,10 @@ class mainmain
        mainmain();
        int Execute();
 	bool Init();
-void Quit( int returnCode );
+	void Quit( int returnCode );
 	void Cleanup();		
-Graphics *m_pGraphics;
+	Graphics *m_pGraphics;
+	TextRender *m_pText;
     private:
 	SDL_Surface*    Screen;
        bool Running;

@@ -36,10 +36,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/q/q-game
+CMAKE_SOURCE_DIR = /home/spok/q
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/q/q-game
+CMAKE_BINARY_DIR = /home/spok/q
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -66,9 +66,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/q/q-game/CMakeFiles /home/q/q-game/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/spok/q/CMakeFiles /home/spok/q/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/q/q-game/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/spok/q/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
