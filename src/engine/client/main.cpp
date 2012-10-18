@@ -88,7 +88,7 @@ int mainmain::Execute()
  	Running = true;
 		 SDL_Color clr = {255,50,40,100};
 		 SDL_Rect dest = {80, 120,0,0};
-m_pText->print_ttf(Screen, "SDL_ttf example", "courier.ttf", 46, clr, dest);
+m_pText->print_ttf(Screen, "SDL_ttf example", "data/courier.ttf", 46, clr, dest);
 	SDL_Flip(Screen);
 
 	    while(Running) {
