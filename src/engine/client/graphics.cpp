@@ -43,7 +43,7 @@ int Graphics::LoadImage(char* filename,GLuint image)
 {
     /* Status indicator */
     int Status = FALSE;
-
+return 1;
     /* Create storage space for the texture */
     SDL_Surface *TextureImage[1]; 
 

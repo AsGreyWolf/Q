@@ -41,10 +41,12 @@ bool mainmain::Init()
 	}
 
     /* the flags to pass to SDL_SetVideoMode */
-    videoFlags  = SDL_OPENGL;          /* Enable OpenGL in SDL */
+ videoFlags = SDL_RESIZABLE;    
+videoFlags  |= SDL_OPENGL;          /* Enable OpenGL in SDL */
     videoFlags |= SDL_GL_DOUBLEBUFFER; /* Enable double buffering */
     videoFlags |= SDL_HWPALETTE;       /* Store the palette in hardware */
-    videoFlags |= SDL_RESIZABLE;       /* Enable window resizing */
+          /* Enable window resizing */
+	videoFlags |= SDL_DOUBLEBUF;
 
     /* This checks to see if surfaces can be stored in memory */
     if ( videoInfo->hw_available )
@@ -60,7 +62,7 @@ bool mainmain::Init()
     SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
 
     /* get a SDL surface */
-    Screen = SDL_SetVideoMode(640,480,32,SDL_HWSURFACE|SDL_DOUBLEBUF); 
+    Screen = SDL_SetVideoMode(640,480,32,videoFlags); 
 
     /* Verify there is a surface */
     if ( !Screen )
@@ -79,8 +81,8 @@ int mainmain::Execute()
 	if(Init() == false && Running == false ) 
 		 return -1;
 	    	
-	//if(m_pGraphics->Init() == 0) 
-	//	 return -1;
+	if(m_pGraphics->Init() == 0) 
+		 return -1;
 	    
 	 if(m_pText->Init() == 0 && Running == false )
 		return -1;
@@ -93,13 +95,17 @@ int mainmain::Execute()
 		clr.b = 0;
 		dest.x = 80;
 		dest.y = 250;
-		m_pText->print_ttf(Screen, "SDL_ttf example", "data/courier.ttf", 46, clr, dest);
-		SDL_Flip(Screen);
-
+		
+		
+ 		//SDL_Surface* sFont;
+ 		//sFont = m_pText->LoadFont("font.png");
+ 		//m_pText->DrawText(sFont, 20, 150, "BITMAP FONT EXAMPLE", Screen);
+		//SDL_Flip(Screen);
 	    while(Running) {
 		//m_pGraphics->drawGLScene( );
 
-		 
+		 m_pText->print_ttf( "SDL_ttf example", "data/courier.ttf", 46, clr, dest);
+SDL_GL_SwapBuffers( );
 		 SDL_Event Event;
 		 while(SDL_PollEvent(&Event)) {
 		       if (Event.type == SDL_QUIT){ 
