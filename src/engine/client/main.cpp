@@ -1,6 +1,9 @@
 #ifndef _MAIN_CPP_
 #define _MAIN_CPP_ 
 #include "main.h"
+#include <sstream>
+using std::stringstream;
+#include <iostream>
 
 mainmain::mainmain() 
 {
@@ -97,8 +100,18 @@ int mainmain::Execute()
 		clr.b = 0;
 		dest.x = 80;
 		dest.y = 250;
+		SDL_Color clr2;
+ 		SDL_Rect dest2;
+		clr2.r = 255;
+		clr2.g = 255;
+		clr2.b = 255;
+		dest2.x = 0;
+		dest2.y = 0;
+		stringstream iostr;
 		
-		
+		char sfps[5];
+		iostr<<0.0;
+		iostr>>sfps;
  		//SDL_Surface* sFont;
  		//sFont = m_pText->LoadFont("font.png");
  		//m_pText->DrawText(sFont, 20, 150, "BITMAP FONT EXAMPLE", Screen);
@@ -108,6 +121,8 @@ int mainmain::Execute()
 		 //m_pGraphics->drawGLScene( );
 
 		 m_pText->print_ttf( "SDL_ttf example", "data/courier.ttf", 46, clr, dest);
+		m_pText->print_ttf(sfps , "data/courier.ttf", 15, clr2, dest2);
+		
 		 SDL_GL_SwapBuffers( );
 		 SDL_Event Event;
 		 while(SDL_PollEvent(&Event)) {
@@ -118,9 +133,12 @@ int mainmain::Execute()
 	Frames++;
     {
 	GLint t = SDL_GetTicks();
-	if (t - T0 >= 5000) {
+	if (t - T0 >= 1000) {
 	    GLfloat seconds = (t - T0) / 1000.0;
 	    GLfloat fps = Frames / seconds;
+		stringstream iostr2;
+		iostr2<<fps;
+    		iostr2>>sfps;
 	    printf("%d frames in %g seconds = %g FPS\n", Frames, seconds, fps);
 	    T0 = t;
 	    Frames = 0;
