@@ -85,11 +85,10 @@ printf("can't load texture");
 int Graphics::drawGLScene( )
 {
     /* These are to calculate our fps */
-    static GLint T0     = 0;
-    static GLint Frames = 0;
+    
+    
 
     /* Clear The Screen And The Depth Buffer */
-    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
     /* Move Into The Screen 5 Units */
     glLoadIdentity( );
@@ -171,20 +170,10 @@ int Graphics::drawGLScene( )
     glEnd( );
 
     /* Draw it to the screen */
-    SDL_GL_SwapBuffers( );
+    
 
     /* Gather our frames per second */
-    Frames++;
-    {
-	GLint t = SDL_GetTicks();
-	if (t - T0 >= 5000) {
-	    GLfloat seconds = (t - T0) / 1000.0;
-	    GLfloat fps = Frames / seconds;
-	    printf("%d frames in %g seconds = %g FPS\n", Frames, seconds, fps);
-	    T0 = t;
-	    Frames = 0;
-	}
-    }
+    
     return( TRUE );
 }
 int Graphics::Init( )  

@@ -78,6 +78,8 @@ videoFlags  |= SDL_OPENGL;          /* Enable OpenGL in SDL */
 }
 int mainmain::Execute()
 {
+	static GLint Frames = 0;
+	static GLint T0     = 0;
 	if(Init() == false && Running == false ) 
 		 return -1;
 	    	
@@ -102,16 +104,28 @@ int mainmain::Execute()
  		//m_pText->DrawText(sFont, 20, 150, "BITMAP FONT EXAMPLE", Screen);
 		//SDL_Flip(Screen);
 	    while(Running) {
-		//m_pGraphics->drawGLScene( );
+		 glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+		 //m_pGraphics->drawGLScene( );
 
 		 m_pText->print_ttf( "SDL_ttf example", "data/courier.ttf", 46, clr, dest);
-SDL_GL_SwapBuffers( );
+		 SDL_GL_SwapBuffers( );
 		 SDL_Event Event;
 		 while(SDL_PollEvent(&Event)) {
 		       if (Event.type == SDL_QUIT){ 
       				Running = false;
      			}	
-		 }	 
+		 }
+	Frames++;
+    {
+	GLint t = SDL_GetTicks();
+	if (t - T0 >= 5000) {
+	    GLfloat seconds = (t - T0) / 1000.0;
+	    GLfloat fps = Frames / seconds;
+	    printf("%d frames in %g seconds = %g FPS\n", Frames, seconds, fps);
+	    T0 = t;
+	    Frames = 0;
+	}
+    }	 
 		
 	    }
 	 Cleanup(); 
