@@ -117,7 +117,7 @@ int mainmain::Execute()
  		//m_pText->DrawText(sFont, 20, 150, "BITMAP FONT EXAMPLE", Screen);
 		//SDL_Flip(Screen);
 GLuint texture;
-texture=m_pGraphics->LoadImage((char*)"kolobok.bmp", texture) ;
+texture=m_pGraphics->LoadImage((char*)"data/images/kolobok.bmp", texture) ;
 	    while(Running) {
 		 glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 		 m_pGraphics->drawGLScene( texture );

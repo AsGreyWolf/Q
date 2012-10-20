@@ -53,7 +53,7 @@ void TextRender::SDL_GL_RenderText(char *text,
     rmask = 0x000000ff;
     gmask = 0x0000ff00;
     bmask = 0x00ff0000;
-    amask = 0xff000000;
+    amask = 0x00000000;
   #endif
 	intermediary = SDL_CreateRGBSurface(0, w, h, 32, 
 			rmask, gmask, bmask, amask);
