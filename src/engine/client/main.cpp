@@ -44,8 +44,8 @@ bool mainmain::Init()
 	}
 
     /* the flags to pass to SDL_SetVideoMode */
- videoFlags = SDL_RESIZABLE;    
-videoFlags  |= SDL_OPENGL;          /* Enable OpenGL in SDL */
+ //videoFlags = SDL_RESIZABLE;    
+videoFlags  = SDL_OPENGL;          /* Enable OpenGL in SDL */
     videoFlags |= SDL_GL_DOUBLEBUFFER; /* Enable double buffering */
     videoFlags |= SDL_HWPALETTE;       /* Store the palette in hardware */
           /* Enable window resizing */
@@ -116,9 +116,11 @@ int mainmain::Execute()
  		//sFont = m_pText->LoadFont("font.png");
  		//m_pText->DrawText(sFont, 20, 150, "BITMAP FONT EXAMPLE", Screen);
 		//SDL_Flip(Screen);
+GLuint texture;
+texture=m_pGraphics->LoadImage((char*)"kolobok.bmp", texture) ;
 	    while(Running) {
 		 glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-		 //m_pGraphics->drawGLScene( );
+		 m_pGraphics->drawGLScene( texture );
 
 		 m_pText->print_ttf( "SDL_ttf example", "data/courier.ttf", 46, clr, dest);
 		m_pText->print_ttf(sfps , "data/courier.ttf", 15, clr2, dest2);

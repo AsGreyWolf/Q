@@ -26,11 +26,15 @@ SDL_Surface *surface;
 GLfloat xrot; /* X Rotation ( NEW ) */
 GLfloat yrot; /* Y Rotation ( NEW ) */
 GLfloat zrot; /* Z Rotation ( NEW ) */
-	GLuint images[1];
-       int LoadImage(char* filename,GLuint image);
+	
+       GLuint LoadImage(char* filename,GLuint image);
+	int DestroyImage(GLuint texture);
 	int Init(  );
-	int drawGLScene(  ); 
+	int drawGLScene( GLuint texture ); 
        Graphics();
 	int resizeWindow( int width, int height );
+private:
+	int round(double x);
+	int nextpoweroftwo(int x);
 };
 #endif

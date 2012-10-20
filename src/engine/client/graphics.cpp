@@ -1,7 +1,20 @@
 #ifndef _GRAPHICS_CPP_
 #define _GRAPHICS_CPP_
 #include "graphics.h"
- 
+#include <math.h>
+
+int Graphics::round(double x)
+{
+	return (int)(x + 0.5);
+}
+int Graphics::DestroyImage(GLuint texture){
+glDeleteTextures(1, &texture);
+}
+int Graphics::nextpoweroftwo(int x)
+{
+	double logbase2 = log(x) / log(2);
+	return round(pow(2,ceil(logbase2)));
+}
 Graphics::Graphics()
 {
 
@@ -39,50 +52,75 @@ int Graphics::resizeWindow( int width, int height )
 
     return( TRUE );
 }
-int Graphics::LoadImage(char* filename,GLuint image)
+GLuint Graphics::LoadImage(char* filename,GLuint image)
 {
     /* Status indicator */
-    int Status = FALSE;
-return 1;
-    /* Create storage space for the texture */
-    SDL_Surface *TextureImage[1]; 
-
-    /* Load The Bitmap, Check For Errors, If Bitmap's Not Found Quit */
-if(!( TextureImage[0] = SDL_LoadBMP( filename) )){
-printf("can't load texture");
+SDL_Surface *surface;	// This surface will tell us the details of the image
+GLenum texture_format;
+GLint  nOfColors;
+ 
+if ( (surface = SDL_LoadBMP(filename)) ) { 
+ 
+	// Check that the image's width is a power of 2
+	if ( (surface->w & (surface->w - 1)) != 0 ) {
+		printf("warning: image.bmp's width is not a power of 2\n");
+	}
+ 
+	// Also check if the height is a power of 2
+	if ( (surface->h & (surface->h - 1)) != 0 ) {
+		printf("warning: image.bmp's height is not a power of 2\n");
+	}
+ 
+        // get the number of channels in the SDL surface
+        nOfColors = surface->format->BytesPerPixel;
+        if (nOfColors == 4)     // contains an alpha channel
+        {
+                if (surface->format->Rmask == 0x000000ff)
+                        texture_format = GL_RGBA;
+                else
+                        texture_format = GL_BGRA;
+        } else if (nOfColors == 3)     // no alpha channel
+        {
+                if (surface->format->Rmask == 0x000000ff)
+                        texture_format = GL_RGB;
+                else
+                        texture_format = GL_BGR;
+        } else {
+                printf("warning: the image is not truecolor..  this will probably break\n");
+                // this error should not go unhandled
+        }
+ 
+	// Have OpenGL generate a texture object handle for us
+	glGenTextures( 1, &image );
+ 
+	// Bind the texture object
+	glBindTexture( GL_TEXTURE_2D, image );
+ 
+	// Set the texture's stretching properties
+        glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+        glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+ 
+	// Edit the texture object's image data using the information SDL_Surface gives us
+	glTexImage2D( GL_TEXTURE_2D, 0, nOfColors, surface->w, surface->h, 0,
+                      texture_format, GL_UNSIGNED_BYTE, surface->pixels );
+} 
+else {
+	printf("SDL could not load image.bmp: %s\n", SDL_GetError());
+	SDL_Quit();
+	return 0;
+}    
+ 
+// Free the SDL_Surface only if it was successfully created
+if ( surface ) { 
+	SDL_FreeSurface( surface );
 }
 
-    else 
-        {
-
-	    /* Set the status to true */
-	    Status = TRUE;
-
-	    /* Create The Texture */
-	    glGenTextures( 1, &image );
-
-	    /* Typical Texture Generation Using Data From The Bitmap */
-	    glBindTexture( GL_TEXTURE_2D, image );
-
-	    /* Generate The Texture */
-	    glTexImage2D( GL_TEXTURE_2D, 0, 3, TextureImage[0]->w,
-			  TextureImage[0]->h, 0, GL_BGR,
-			  GL_UNSIGNED_BYTE, TextureImage[0]->pixels );
-	    /* Linear Filtering */
-
-	    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
-	    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
-        }
-    /* Free up any memory we may have used */
-    if ( TextureImage[0] )
-	    SDL_FreeSurface( TextureImage[0] );
-
-    return Status;
+    return image;
 }
 
 
 /* Here goes our drawing code */
-int Graphics::drawGLScene( )
+int Graphics::drawGLScene(GLuint texture )
 {
     /* These are to calculate our fps */
     
@@ -99,7 +137,7 @@ int Graphics::drawGLScene( )
     glRotatef( 0.0f, 0.0f, 0.0f, 1.0f); /* Rotate On The Z Axis */
 
     /* Select Our Texture */
-    glBindTexture( GL_TEXTURE_2D, images[0] );
+    glBindTexture( GL_TEXTURE_2D, texture );
 
     /* NOTE:
      *   The x coordinates of the glTexCoord2f function need to inverted
@@ -182,8 +220,7 @@ int Graphics::Init( )
 /* Flags to pass to SDL_SetVideoMode */
     
 //printf("initted");
-    if ( !LoadImage((char*)"data/images/kolobok.bmp", images[0]) )
-	return FALSE;
+    
     /* Enable Texture Mapping ( NEW ) */
     glEnable( GL_TEXTURE_2D );
 
@@ -195,8 +232,8 @@ int Graphics::Init( )
 
     /* Depth buffer setup */
     glClearDepth( 1.0f );
-
-    /* Enables Depth Testing */
+	
+    /* Enables 	Depth Testing */
     glEnable( GL_DEPTH_TEST );
 
     /* The Type Of Depth Test To Do */
@@ -205,6 +242,7 @@ int Graphics::Init( )
     glHint( GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST );
 
  resizeWindow( SCREEN_WIDTH, SCREEN_HEIGHT );
+
  
     return( TRUE );
 }

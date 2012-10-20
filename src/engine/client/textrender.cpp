@@ -2,18 +2,12 @@
 #define _TEXTRENDER_CPP_
 #include "textrender.h"
 #include "SDL_image.h"
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 
 #include <GL/gl.h>
 #include <GL/glu.h>
-int TextRender::Init()
-{
-	TTF_Init();
-	atexit(TTF_Quit);
-	return 1;
-}
 int TextRender::round(double x)
 {
 	return (int)(x + 0.5);
@@ -23,6 +17,12 @@ int TextRender::nextpoweroftwo(int x)
 {
 	double logbase2 = log(x) / log(2);
 	return round(pow(2,ceil(logbase2)));
+}
+int TextRender::Init()
+{
+	TTF_Init();
+	atexit(TTF_Quit);
+	return 1;
 }
 void TextRender::SDL_GL_RenderText(char *text, 
                       TTF_Font *font,
@@ -36,9 +36,10 @@ void TextRender::SDL_GL_RenderText(char *text,
 	GLuint texture;
 	
 	/* Use SDL_TTF to render our text */
-	initial = TTF_RenderText_Blended(font, text, color);
+	initial = TTF_RenderText_Solid(font, text, color);
 	
 	/* Convert the rendered text to a known format */
+	
 	w = nextpoweroftwo(initial->w);
 	h = nextpoweroftwo(initial->h);
 	

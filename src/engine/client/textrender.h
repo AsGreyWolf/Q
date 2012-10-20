@@ -18,8 +18,8 @@ void SDL_GL_RenderText(char *text,
                       SDL_Color color,
                       SDL_Rect *location);
 void glEnable2D();
+void glDisable2D();
 int round(double x);
 int nextpoweroftwo(int x);
-void glDisable2D();
 };
 #endif
