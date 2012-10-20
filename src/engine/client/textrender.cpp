@@ -42,17 +42,30 @@ void TextRender::SDL_GL_RenderText(char *text,
 	
 	w = nextpoweroftwo(initial->w);
 	h = nextpoweroftwo(initial->h);
-	
+	Uint32 rmask, gmask, bmask, amask;
+  
+  #if SDL_BYTEORDER == SDL_BIG_ENDIAN
+    rmask = 0xff000000;
+    gmask = 0x00ff0000;
+    bmask = 0x0000ff00;
+    amask = 0x000000ff;
+  #else
+    rmask = 0x000000ff;
+    gmask = 0x0000ff00;
+    bmask = 0x00ff0000;
+    amask = 0xff000000;
+  #endif
 	intermediary = SDL_CreateRGBSurface(0, w, h, 32, 
-			0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000);
-
+			rmask, gmask, bmask, amask);
+	
 	SDL_BlitSurface(initial, 0, intermediary, 0);
 	
 	/* Tell GL about our new texture */
 	glGenTextures(1, &texture);
 	glBindTexture(GL_TEXTURE_2D, texture);
-	glTexImage2D(GL_TEXTURE_2D, 0, 4, w, h, 0, GL_BGRA, 
-			GL_UNSIGNED_BYTE, intermediary->pixels );
+	//glTexImage2D(GL_TEXTURE_2D, 0, 4, w, h, 0, GL_BGRA, 
+	//		GL_UNSIGNED_BYTE, intermediary->pixels );
+gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGBA, w, h, GL_RGBA, GL_UNSIGNED_BYTE, intermediary->pixels);
 	
 	/* GL_NEAREST looks horrible, if scaled... */
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
