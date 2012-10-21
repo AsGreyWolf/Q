@@ -90,7 +90,7 @@ int mainmain::Execute()
 				
 		SDL_Flip(Screen);
 		SDL_Event Event;
-		while(SDL_PollEvent(&Event)) 
+		while(SDL_PollEvent(&Event))  
 		{
 			//OnEvent
 		      if (Event.type == SDL_QUIT)
