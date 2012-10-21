@@ -8,7 +8,7 @@
 class Audio
 {
 public:
-Sounder();
+Audio();
 int Init();
 void Quit();
 };
