@@ -9,7 +9,7 @@
 class Graphics
 {
     public:
-	SDL_Surface *LoadImage(char* image);
+	SDL_Surface *LoadImage(const char* image);
 	void DrawIMG(SDL_Surface *img, int x, int y ,SDL_Surface *screen);
 };
 #endif
