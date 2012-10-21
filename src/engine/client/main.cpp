@@ -13,7 +13,7 @@ mainmain::mainmain()
 void mainmain::Quit( int returnCode )
 {
     SDL_Quit( );
-    m_pText->TextRender_Exit();    
+    m_pText->TextRender_Exit();
     exit( returnCode );
 }
 bool mainmain::Init() 
@@ -33,9 +33,9 @@ bool mainmain::Init()
 	    fprintf( stderr,  "Video mode set failed: %s\n", SDL_GetError( ) );
 	    Quit( 1 );
 
-    	SDL_WM_SetCaption("ololo game","v1");
-	return true;
 	}
+	SDL_WM_SetCaption("ololo game","v1");
+	return true;
 }
 int mainmain::Execute()
 {
