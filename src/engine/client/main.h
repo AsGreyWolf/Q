@@ -11,13 +11,13 @@ class mainmain
       int Execute();
 	bool Init();
 	void Quit( int returnCode );
-	void Cleanup();
 	Player *m_pPlayer;		
 	Graphics *m_pGraphics;
 	TextRender *m_pText;
     private:
 	SDL_Surface*    Screen;
 	SDL_Surface *image;
+	float timer;
       bool Running;
 };
 #endif
