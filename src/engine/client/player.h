@@ -5,6 +5,7 @@
 class Player
 {
 public:
+	int Init();
 	int m_Posx;
 	int m_Posy;
 };
