@@ -89,6 +89,7 @@ int mainmain::Execute()
 	sound->LoadSound("1.wav");
 	sound->PlaySound();
 	//****************
+	bool stopxp;
 	while(Running) 
 	{
 		//****************
@@ -102,6 +103,9 @@ int mainmain::Execute()
 		m_pGraphics->DrawIMG(cursor, mouseposx,mouseposy, Screen);
 		SDL_Flip(Screen);
 		SDL_Event Event;
+		if(m_pPlayer->m_Posx == 500)
+			stopxp = true;
+		else 	stopxp = false;
 		//**********************
 		while(SDL_PollEvent(&Event)) 
 		{
@@ -113,10 +117,25 @@ int mainmain::Execute()
 		}
 		//OnKeyDown()
 		keys = SDL_GetKeyState(NULL);
-		if(keys[SDLK_UP]){ m_pPlayer->m_Posy -= 1; }
-		if(keys[SDLK_DOWN]){ m_pPlayer->m_Posy += 1; }
-		if(keys[SDLK_LEFT]){ m_pPlayer->m_Posx -= 1; }
-		if(keys[SDLK_RIGHT]){ m_pPlayer->m_Posx += 1; }
+		if(keys[SDLK_UP])
+		{ 
+			m_pPlayer->m_Posy -= 1; 
+		}
+		if(keys[SDLK_DOWN])
+		{
+		
+			m_pPlayer->m_Posy += 1; 
+		}
+		if(keys[SDLK_LEFT])
+		{ 
+			m_pPlayer->m_Posx -= 1; 
+		}
+		
+		if(keys[SDLK_RIGHT])
+		{
+			if(!stopxp)
+				m_pPlayer->m_Posx += 1; 
+		}
 		Frames++;
 	
 		//ticks
