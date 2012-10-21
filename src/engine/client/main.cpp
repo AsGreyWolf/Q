@@ -39,7 +39,12 @@ bool mainmain::Init()
 }
 int mainmain::Execute()
 {
-
+	static int Frames = 0;
+	static int T0     = 0;
+	stringstream iostr;
+	char sfps[5];
+		iostr<<0.0;
+		iostr>>sfps;
 	if(Init() == false && Running == false ) 
 		 return -1;
 	    	
@@ -54,15 +59,23 @@ int mainmain::Execute()
 		clr.b = 0;
 		dest.x = 70;
 		dest.y = 200;
-		image=SDL_LoadBMP("data/images/kolobok.bmp"); 
+		SDL_Color clr2;
+ 		SDL_Rect dest2;
+		clr2.r = 255;
+		clr2.g = 255;
+		clr2.b = 255;
+		dest2.x = 0;
+		dest2.y = 0;
+		image=m_pGraphics->LoadImage("data/images/kolobok.bmp"); 
 		Uint8 *keys;
 		m_pPlayer->m_Posx = 10;
 		m_pPlayer->m_Posy = 10;
 	    while(Running) 
 	    {
-	    	
+	    	SDL_FillRect(Screen, NULL, SDL_MapRGB(Screen->format, 0, 0, 0));
 		m_pGraphics->DrawIMG(image, m_pPlayer->m_Posx,m_pPlayer->m_Posy ,Screen);
 		m_pText->print_ttf(Screen, "SDL_ttf example", "data/courier.ttf", 46, clr, dest);
+		m_pText->print_ttf(Screen,sfps , "data/courier.ttf", 15, clr2, dest2);
 				
 		SDL_Flip(Screen);
 		SDL_Event Event;
@@ -78,8 +91,23 @@ int mainmain::Execute()
 		   if(keys[SDLK_UP]){ m_pPlayer->m_Posy -= 1; }
 		   if(keys[SDLK_DOWN]){ m_pPlayer->m_Posy += 1; }
 		   if(keys[SDLK_LEFT]){ m_pPlayer->m_Posx -= 1; }
-		   if(keys[SDLK_RIGHT]){ m_pPlayer->m_Posx += 1; }	
+		   if(keys[SDLK_RIGHT]){ m_pPlayer->m_Posx += 1; }
+		   Frames++;
+    		{
+	int t = SDL_GetTicks();
+	if (t - T0 >= 1000) {
+	    float seconds = (t - T0) / 1000.0;
+	    float fps = Frames / seconds;
+		stringstream iostr2;
+		iostr2<<fps;
+    		iostr2>>sfps;
+	    printf("%d frames in %g seconds = %g FPS\n", Frames, seconds, fps);
+	    T0 = t;
+	    Frames = 0;
+		}
+    		}	
 	}
+		 
 	 Cleanup(); 
 	 return 0;    
 }
