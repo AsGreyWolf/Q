@@ -38,7 +38,8 @@ bool mainmain::Init()
 	    	
 	if(m_pText->Init() == 0 && Running == false )
 		return -1;
-	
+	if(m_pPlayer->Init() == 0)
+		return -1;
 	SDL_ShowCursor(0);
 	return true;
 }
@@ -84,8 +85,6 @@ int mainmain::Execute()
 	Uint8 *keys;
 	//******************
 	char fpss[10];
-	m_pPlayer->m_Posx = 10;
-	m_pPlayer->m_Posy = 10;
 	Sound* sound=new Sound;
 	sound->LoadSound("1.wav");
 	sound->PlaySound();
