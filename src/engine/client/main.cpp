@@ -12,13 +12,14 @@ mainmain::mainmain()
 } 
 void mainmain::Quit( int returnCode )
 {
-    SDL_Quit( );
-    m_pText->TextRender_Exit();
-    exit( returnCode );
+	//Quit()
+	SDL_Quit( );
+	m_pText->TextRender_Exit();
+	exit( returnCode );
 }
 bool mainmain::Init() 
 {
-
+	timer=0;
     if ( SDL_Init( SDL_INIT_EVERYTHING ) < 0 )
 	{
 	    fprintf( stderr, "SDL initialization failed: %s\n",
@@ -35,6 +36,11 @@ bool mainmain::Init()
 
 	}
 	SDL_WM_SetCaption("ololo game","v1");
+	//Init()    	
+	    
+	 if(m_pText->Init() == 0 && Running == false )
+		return -1;
+	SDL_ShowCursor(0);
 	return true;
 }
 int mainmain::Execute()
@@ -44,16 +50,11 @@ int mainmain::Execute()
 	static int T1     = 0;
 	char sfps[8];
 	
-	//Init()
-	if(Init() == false && Running == false ) 
-		 return -1;
-	    	
-	    
-	 if(m_pText->Init() == 0 && Running == false )
-		return -1;
+		if(Init() == false && Running == false ) 
+			return -1;
 		Audio *m_pAudio;	
 		if(m_pAudio->Init() == 0 && Running == false )
-		return -1;
+			return -1;
 		
 		Running = true;
 		SDL_Color clr;
@@ -61,17 +62,20 @@ int mainmain::Execute()
 		clr.r = 255;
 		clr.g = 255;
 		clr.b = 0;
+		int mouseposx=0;
+		int mouseposy=0;
 		dest.x = 70;
 		dest.y = 200;
 		SDL_Color clr2;
  		SDL_Rect dest2;
- 		timer=0;
 		clr2.r = 255;
 		clr2.g = 255;
 		clr2.b = 255;
 		dest2.x = 0;
 		dest2.y = 0;
+		SDL_Surface *cursor;
 		image=m_pGraphics->LoadImage("data/images/kolobok.bmp"); 
+		cursor=m_pGraphics->LoadImage("data/gui_cursor.bmp"); 
 		Uint8 *keys;
 		char fpss[10];
 		m_pPlayer->m_Posx = 10;
@@ -81,13 +85,14 @@ int mainmain::Execute()
 		sound->PlaySound();
 	    while(Running) 
 	    {
+	    	SDL_GetMouseState(&mouseposx, &mouseposy);
 	    	//OnCleanUp()
 	    	SDL_FillRect(Screen, NULL, SDL_MapRGB(Screen->format, 0, 0, 0));
 		m_pGraphics->DrawIMG(image, m_pPlayer->m_Posx,m_pPlayer->m_Posy ,Screen);
 		//OnRender()
 		m_pText->print_ttf(Screen, "SDL_ttf example", "data/courier.ttf", 46, clr, dest);
 		m_pText->print_ttf(Screen,sfps , "data/courier.ttf", 15, clr2, dest2);
-				
+		m_pGraphics->DrawIMG(cursor, mouseposx,mouseposy, Screen);
 		SDL_Flip(Screen);
 		SDL_Event Event;
 		while(SDL_PollEvent(&Event)) 
@@ -96,7 +101,7 @@ int mainmain::Execute()
 		      if (Event.type == SDL_QUIT)
 		      { 
       				Running = false;
-     			}	
+     			}
 		}
 			 //OnKeyDown()
 		   keys = SDL_GetKeyState(NULL);
@@ -121,7 +126,7 @@ int mainmain::Execute()
 		}
     		}	
 	}
-	//Quit()
+	
 	m_pAudio->Quit();
 	  Quit(0);
 	 return 0;
