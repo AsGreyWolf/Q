@@ -4,6 +4,9 @@
 #include <SDL.h> 
 #include "textrender.h"
 #include "player.h"
+#include "audio.h"
+#include "sound.h"
+
 class mainmain 
 {
     public:
@@ -14,6 +17,7 @@ class mainmain
 	Player *m_pPlayer;		
 	Graphics *m_pGraphics;
 	TextRender *m_pText;
+	
     private:
 	SDL_Surface*    Screen;
 	SDL_Surface *image;

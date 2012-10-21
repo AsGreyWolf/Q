@@ -51,6 +51,10 @@ int mainmain::Execute()
 	    
 	 if(m_pText->Init() == 0 && Running == false )
 		return -1;
+		Sounder *m_pAudio;	
+		if(m_pAudio->Init() == 0 && Running == false )
+		return -1;
+		
 		Running = true;
 		SDL_Color clr;
  		SDL_Rect dest;
@@ -72,6 +76,9 @@ int mainmain::Execute()
 		char fpss[10];
 		m_pPlayer->m_Posx = 10;
 		m_pPlayer->m_Posy = 10;
+		Sound* sound=new Sound;
+		sound->LoadSound("1.wav");
+		sound->PlaySound();
 	    while(Running) 
 	    {
 	    	//OnCleanUp()
@@ -93,7 +100,9 @@ int mainmain::Execute()
 		}
 			 //OnKeyDown()
 		   keys = SDL_GetKeyState(NULL);
-		   if(keys[SDLK_UP]){ m_pPlayer->m_Posy -= 1; }
+		   if(keys[SDLK_UP]){ m_pPlayer->m_Posy -= 1; 
+		  
+		   }
 		   if(keys[SDLK_DOWN]){ m_pPlayer->m_Posy += 1; }
 		   if(keys[SDLK_LEFT]){ m_pPlayer->m_Posx -= 1; }
 		   if(keys[SDLK_RIGHT]){ m_pPlayer->m_Posx += 1; }
@@ -113,6 +122,7 @@ int mainmain::Execute()
     		}	
 	}
 	//Quit()
+	m_pAudio->Quit();
 	  Quit(0);
 	 return 0;
 }
