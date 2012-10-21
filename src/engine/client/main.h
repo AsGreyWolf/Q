@@ -2,7 +2,7 @@
 #define _MAIN_H_  
 #include "graphics.h"
 #include <SDL.h> 
-#include "textrender.h" 
+#include "textrender.h"
 #include "player.h"
 #include "audio.h"
 #include "sound.h"
