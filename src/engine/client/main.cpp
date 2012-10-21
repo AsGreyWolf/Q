@@ -51,7 +51,7 @@ int mainmain::Execute()
 	    
 	 if(m_pText->Init() == 0 && Running == false )
 		return -1;
-		Sounder *m_pAudio;	
+		Audio *m_pAudio;	
 		if(m_pAudio->Init() == 0 && Running == false )
 		return -1;
 		
