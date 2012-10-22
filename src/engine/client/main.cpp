@@ -90,6 +90,9 @@ int mainmain::Execute()
 	sound->PlaySound();
 	//****************
 	bool stopxp;
+	bool stopxm;
+	bool stopyp;
+	bool stopym;
 	while(Running) 
 	{
 		//****************
@@ -106,6 +109,15 @@ int mainmain::Execute()
 		if(m_pPlayer->m_Posx == 500)
 			stopxp = true;
 		else 	stopxp = false;
+		if(m_pPlayer->m_Posx == 0)
+			stopxm = true;
+		else 	stopxm = false;
+		if(m_pPlayer->m_Posy == 400)
+			stopyp = true;
+		else 	stopyp = false;
+		if(m_pPlayer->m_Posy == 0)
+			stopym = true;
+		else 	stopym = false;
 		//**********************
 		while(SDL_PollEvent(&Event)) 
 		{
@@ -119,16 +131,18 @@ int mainmain::Execute()
 		keys = SDL_GetKeyState(NULL);
 		if(keys[SDLK_UP])
 		{ 
+			if(!stopym)
 			m_pPlayer->m_Posy -= 1; 
 		}
 		if(keys[SDLK_DOWN])
 		{
-		
-			m_pPlayer->m_Posy += 1; 
+			if(!stopyp)
+				m_pPlayer->m_Posy += 1; 
 		}
 		if(keys[SDLK_LEFT])
 		{ 
-			m_pPlayer->m_Posx -= 1; 
+			if(!stopxm)
+				m_pPlayer->m_Posx -= 1; 
 		}
 		
 		if(keys[SDLK_RIGHT])
