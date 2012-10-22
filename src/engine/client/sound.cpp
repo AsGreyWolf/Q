@@ -3,12 +3,13 @@
 
 #include "sound.h"
 //Sound::Sound(){}
-int Sound::LoadSound(char *path){
+int Sound::Load(char *path){
 sound = Mix_LoadWAV ("1.wav");
 return 1;
 }
-int Sound::PlaySound ()
+int Sound::Play (int chanell, int volume)
 {
+chanel=chanell;
 //printf ("playing");
  if (!sound)
  {
@@ -19,45 +20,29 @@ int Sound::PlaySound ()
  
 // играет в первом свободном канале
 // 3 параметр если 0 то 1 раз играет если 1 то 2 раза и т.д.
- if (Mix_PlayChannel (-1, sound, 0) == 0)
+Mix_VolumeChunk(sound, volume);
+ if (Mix_PlayChannel (chanel, sound, 0) == 0)
  {
 // printf ("Mix_PlayChannel: %s\n", Mix_GetError ());  
 	return 0;
  }
  return 1;
 }
-int Sound::LoadMusic(char* file){
-music = Mix_LoadMUS (file);
+int Sound::Pause(){
+Mix_Pause(chanel);
 return 1;
 }
-int Sound::PlayMusic (int chanel)
-{
-Done=0;
- if (!music)
- {
- //printf ("Mix_LoadMUS(\"*.*\"): %s\n", Mix_GetError ());  
- return 0;
- }
- 
- 
- if (Mix_PlayMusic (music, chanel) == chanel)
- {
- return 0;
- //printf ("Mix_PlayMusic: %s\n", Mix_GetError ());  
- }
-// Mix_HookMusicFinished(MusicDone);
- return 1;
+int Sound::Resume(){
+Mix_Resume(chanel);
+return 1;
 }
-
-/*void Sound::MusicDone(){
-	Mix_HaltMusic();
-
-	/* Unload the music from memory, since we don't need it
-	   anymore *\/
-	Mix_FreeMusic(music);
-	Done=1;
-	music = NULL;
-	return;
-}*/
-
+int Sound::UnLoad(){
+Mix_HaltChannel(chanel);
+Mix_FreeChunk(sound);
+sound=NULL;
+return 1;
+}
+int Sound::IsPlaying(){
+return Mix_Playing(chanel);
+}
 #endif

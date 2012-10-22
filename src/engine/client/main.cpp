@@ -75,14 +75,16 @@ int mainmain::Execute()
 		dest2.y = 0;
 		SDL_Surface *cursor;
 		image=m_pGraphics->LoadImage("data/images/kolobok.bmp"); 
-		cursor=m_pGraphics->LoadImage("data/gui_cursor.bmp"); 
+		cursor=m_pGraphics->LoadImage("data/gui_cursor.png"); 
+		
+    
 		Uint8 *keys;
 		char fpss[10];
 		m_pPlayer->m_Posx = 10;
 		m_pPlayer->m_Posy = 10;
 		Sound* sound=new Sound;
-		sound->LoadSound("1.wav");
-		sound->PlaySound();
+		sound->Load("1.wav");
+		sound->Play(1, 100);
 	    while(Running) 
 	    {
 	    	SDL_GetMouseState(&mouseposx, &mouseposy);

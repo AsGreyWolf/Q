@@ -4,7 +4,7 @@
 
 SDL_Surface *Graphics::LoadImage(char* image)
 {
-	return SDL_LoadBMP(image);
+	return IMG_Load(image);
 }
 void Graphics::DrawIMG(SDL_Surface *img, int x, int y ,SDL_Surface *screen)
 {
