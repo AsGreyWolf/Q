@@ -1,12 +1,7 @@
 #ifndef _AUDIO_CPP_
 #define _AUDIO_CPP_
-
 #include "audio.h"
 
-Audio::Audio() 
-{
-	
-}
 void Audio::Quit(){
 Mix_CloseAudio();
 return;

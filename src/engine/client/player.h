@@ -6,7 +6,7 @@ class Player
 {
 public:
 	int Init();
-	int m_Posx;
-	int m_Posy;
+	float m_Posx;
+	float m_Posy;
 };
 #endif

@@ -58,30 +58,30 @@ int mainmain::Execute()
 		
 		Running = true;
 		SDL_Color clr;
- 		SDL_Rect dest;
+ 		Coord dest;
+ 		dest.SetX(4);
+		dest.SetY(4);
 		clr.r = 255;
 		clr.g = 255;
 		clr.b = 0;
 		int mouseposx=0;
 		int mouseposy=0;
-		dest.x = 70;
-		dest.y = 200;
 		SDL_Color clr2;
- 		SDL_Rect dest2;
 		clr2.r = 255;
 		clr2.g = 255;
 		clr2.b = 255;
-		dest2.x = 0;
-		dest2.y = 0;
+		Coord dest2;
+ 		dest2.SetX(0);
+		dest2.SetY(0);
 		SDL_Surface *cursor;
 		image=m_pGraphics->LoadImage("data/images/kolobok.bmp"); 
 		cursor=m_pGraphics->LoadImage("data/gui_cursor.png"); 
-		
+		Coord CirclePos;
     
 		Uint8 *keys;
 		char fpss[10];
-		m_pPlayer->m_Posx = 10;
-		m_pPlayer->m_Posy = 10;
+		CirclePos.SetX(2);
+		CirclePos.SetY(2);
 		Sound* sound=new Sound;
 		sound->Load("1.wav");
 		sound->Play(1, 100);
@@ -90,10 +90,10 @@ int mainmain::Execute()
 	    	SDL_GetMouseState(&mouseposx, &mouseposy);
 	    	//OnCleanUp()
 	    	SDL_FillRect(Screen, NULL, SDL_MapRGB(Screen->format, 0, 0, 0));
-		m_pGraphics->DrawIMG(image, m_pPlayer->m_Posx,m_pPlayer->m_Posy ,Screen);
+		m_pGraphics->DrawIMGRect(image, CirclePos.GetRect() ,Screen);
 		//OnRender()
-		m_pText->print_ttf(Screen, "SDL_ttf example", "data/courier.ttf", 46, clr, dest);
-		m_pText->print_ttf(Screen,sfps , "data/courier.ttf", 15, clr2, dest2);
+		m_pText->print_ttf(Screen, "SDL_ttf example", "data/courier.ttf", 46, clr, dest.GetRect());
+		m_pText->print_ttf(Screen,sfps , "data/courier.ttf", 15, clr2, dest2.GetRect());
 		m_pGraphics->DrawIMG(cursor, mouseposx,mouseposy, Screen);
 		SDL_Flip(Screen);
 		SDL_Event Event;
@@ -107,12 +107,10 @@ int mainmain::Execute()
 		}
 			 //OnKeyDown()
 		   keys = SDL_GetKeyState(NULL);
-		   if(keys[SDLK_UP]){ m_pPlayer->m_Posy -= 1; 
-		  
-		   }
-		   if(keys[SDLK_DOWN]){ m_pPlayer->m_Posy += 1; }
-		   if(keys[SDLK_LEFT]){ m_pPlayer->m_Posx -= 1; }
-		   if(keys[SDLK_RIGHT]){ m_pPlayer->m_Posx += 1; }
+		   if(keys[SDLK_UP]){ CirclePos.SetY(CirclePos.GetY()-0.05); }
+		   if(keys[SDLK_DOWN]){ CirclePos.SetY(CirclePos.GetY()+0.05); }
+		   if(keys[SDLK_LEFT]){ CirclePos.SetX(CirclePos.GetX()-0.05); }
+		   if(keys[SDLK_RIGHT]){ CirclePos.SetX(CirclePos.GetX()+0.05); }
 		   Frames++;
     		{
 	int t = SDL_GetTicks();

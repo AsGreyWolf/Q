@@ -16,5 +16,12 @@ void Graphics::DrawIMG(SDL_Surface *img, int x, int y ,SDL_Surface *screen)
  SDL_BlitSurface(img, NULL, screen, &dest);
 
 }
+void Graphics::DrawIMGRect(SDL_Surface *img, SDL_Rect dest ,SDL_Surface *screen)
+{
+
+ SDL_BlitSurface(img, NULL, screen, &dest);
+
+}
+
 
 #endif
