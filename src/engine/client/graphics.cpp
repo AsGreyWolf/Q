@@ -8,18 +8,15 @@ SDL_Surface *Graphics::LoadImage(char* image)
 }
 void Graphics::DrawIMG(SDL_Surface *img, int x, int y ,SDL_Surface *screen)
 {
-
- SDL_Rect dest;
- dest.x = x;
- dest.y = y;
-
- SDL_BlitSurface(img, NULL, screen, &dest);
-
+	SDL_Rect dest;
+	dest.x = x;
+	dest.y = y;
+	SDL_BlitSurface(img, NULL, screen, &dest);
 }
 void Graphics::DrawIMGRect(SDL_Surface *img, SDL_Rect dest ,SDL_Surface *screen)
 {
 
- SDL_BlitSurface(img, NULL, screen, &dest);
+	SDL_BlitSurface(img, NULL, screen, &dest);
 
 }
 

@@ -8,8 +8,8 @@
 class Audio
 {
 public:
-int Init();
-void Quit();
+	int Init();
+	void Quit();
 };
 
 #endif
