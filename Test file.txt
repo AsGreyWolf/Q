@@ -7,3 +7,8 @@ int main()
 	cout << "Hello, noob!!!" << ednl;
 	cin >> g;
 }
+int Rem1x;
+if(Rem1x)
+{
+//bezpoleznaya huita
+}
