@@ -7,16 +7,16 @@
 class Sound
 {
 public:
-Mix_Chunk *sound;
-int Load(char *path);
-int Play (int chanell, int volume);
-int Pause();
-int Resume();
-int UnLoad();
-int IsPlaying();
-//void MusicDone();
-int chanel;
-int Done;
+	Mix_Chunk *sound;
+	int Load(char *path);
+	int Play (int chanell, int volume);
+	int Pause();
+	int Resume();
+	int UnLoad();
+	int IsPlaying();
+	//void MusicDone();
+	int chanel;
+	int Done;
 };
 
 #endif
