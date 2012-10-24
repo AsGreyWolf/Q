@@ -27,7 +27,7 @@ bool mainmain::Init()
 		Quit( 1 );
 	}
 	
-	Screen = SDL_SetVideoMode(640,480,32,SDL_HWSURFACE|SDL_DOUBLEBUF); 
+	Screen = SDL_SetVideoMode(640,640,32,SDL_HWSURFACE|SDL_DOUBLEBUF); 
 	
 	if ( !Screen )
 	{
@@ -73,13 +73,11 @@ int mainmain::Execute()
 	clr2.g = 255;
 	clr2.b = 255;
 	Coord dest2;
-	dest2.SetX(0);
-	dest2.SetY(0);
+	dest2.SetX(16);
+	dest2.SetY(16);
 	SDL_Surface *cursor;
-	SDL_Surface *tile;
-	image=m_pGraphics->LoadImage("data/images/kolobok.bmp"); 
-	cursor=m_pGraphics->LoadImage("data/gui_cursor.png"); 
-	tile=m_pGraphics->LoadImage("data/maps/1.png"); 
+	image=LoadImage("data/images/kolobok.bmp"); 
+	cursor=LoadImage("data/gui_cursor.png"); 
 	Coord CirclePos;
 	Uint8 *keys;
 	char fpss[10];
@@ -89,18 +87,22 @@ int mainmain::Execute()
 	Sound* sound=new Sound;
 	sound->Load("1.wav");
 	sound->Play(1, 100);
-	
+	bool playing=true;
 	while(Running) 
 	{
 		SDL_GetMouseState(&mouseposx, &mouseposy);
 		//OnCleanUp()
 		SDL_FillRect(Screen, NULL, SDL_MapRGB(Screen->format, 0, 0, 0));
-		m_pGraphics->DrawIMGRect(image, CirclePos.GetRect() ,Screen);
+		DrawIMGRect(image, CirclePos.GetRect() ,Screen);
 		//OnRender()
-		map.OnRender(tile,Screen);
-		m_pText->print_ttf(Screen, "SDL_ttf example", "data/courier.ttf", 46, clr, dest.GetRect());
-		m_pText->print_ttf(Screen,sfps , "data/courier.ttf", 15, clr2, dest2.GetRect());
-		m_pGraphics->DrawIMG(cursor, mouseposx,mouseposy, Screen);
+		map.OnRender(Screen);
+		m_pText->print_ttf(Screen, "SDL_ttf example", "data/courier.ttf", 1, clr, dest.GetRect(),false,false);
+		m_pText->print_ttf(Screen,sfps , "data/courier.ttf", 0.3, clr2, dest2.GetRect(),true,true);
+		DrawIMG(cursor, mouseposx,mouseposy, Screen);
+		if(!sound->IsPlaying() && playing){
+		playing=false;
+		sound->UnLoad();
+		}
 		SDL_Flip(Screen);
 		SDL_Event Event;
 		while(SDL_PollEvent(&Event)) 

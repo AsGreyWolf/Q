@@ -14,9 +14,11 @@ class Map
     int tex;
     int mode;
     };
-    Tile tiles[501];
+    Tile tiles[50001];
+    SDL_Surface *imgs[50001];
+    bool loadedimg[50001];
     int Open(char* path);
     int Clear();
-    void OnRender(SDL_Surface *img,SDL_Surface *Screen);
+    void OnRender(SDL_Surface *Screen);
 };
 #endif

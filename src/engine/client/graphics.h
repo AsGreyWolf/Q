@@ -7,11 +7,9 @@
 #include <stdlib.h>
 
 
-class Graphics
-{
-    public:
+
 	SDL_Surface *LoadImage(char* image);
 	void DrawIMG(SDL_Surface *img, int x, int y ,SDL_Surface *screen);
 	void DrawIMGRect(SDL_Surface *img, SDL_Rect dest ,SDL_Surface *screen);
-};
+
 #endif
