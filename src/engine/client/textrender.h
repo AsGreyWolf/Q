@@ -10,7 +10,7 @@ class TextRender
     public:
 	int Init();
 	void TextRender_Exit();
-	void print_ttf(SDL_Surface *sDest, char* message, char* font, int size, SDL_Color color, SDL_Rect dest);
+	void print_ttf(SDL_Surface *sDest, char* message, char* font, float size, SDL_Color color, SDL_Rect dest, bool righttoleft, bool downtoup);
 	SDL_Surface* LoadFont(char* BitmapFont);
 	void DrawText(SDL_Surface* sFont, int x, int y, char * str,SDL_Surface* screen);
 

@@ -5,7 +5,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-
+#include "coords.h"
 #include <GL/gl.h>
 #include <GL/glu.h>
 
@@ -16,11 +16,22 @@ int TextRender::Init()
 	return 1;
 }
 
-void TextRender::print_ttf(SDL_Surface *sDest, char* message, char* font, int size, SDL_Color color, SDL_Rect dest)
+void TextRender::print_ttf(SDL_Surface *sDest, char* message, char* font, float size, SDL_Color color, SDL_Rect dest, bool righttoleft,bool downtoup)
 {
-	TTF_Font *fnt = TTF_OpenFont(font, size);
+	TTF_Font *fnt = TTF_OpenFont(font, topoints(size));
+	SDL_Rect dest2;
 	SDL_Surface *sText = TTF_RenderText_Blended( fnt, message, color);
-	SDL_BlitSurface( sText,NULL, sDest,&dest );
+	int w,h;
+	TTF_SizeText(fnt,message,&w,&h);
+	if(righttoleft)
+	dest2.x=dest.x-w;
+	else
+	dest2.x=dest.x;
+	if(downtoup)
+	dest2.y=dest.y-h;
+	else
+	dest2.y=dest.y;
+	SDL_BlitSurface( sText,NULL, sDest,&dest2 );
 	SDL_FreeSurface( sText );
 	TTF_CloseFont( fnt );
 

@@ -7,6 +7,7 @@
 #include "audio.h"
 #include "sound.h"
 #include "coords.h"
+#include "map.h"
 
 class mainmain
 {	
@@ -15,7 +16,7 @@ public:
 	int Execute();
 	bool Init();
 	void Quit( int returnCode );		
-	class Graphics *m_pGraphics;
+	//class Graphics *m_pGraphics;
 	class TextRender *m_pText;
 private:
 	SDL_Surface*    Screen;
