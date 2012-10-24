@@ -53,10 +53,11 @@ int mainmain::Execute()
 		return -1;
 		
 	Audio *m_pAudio;
+	Map map;
 		
 	if(m_pAudio->Init() == 0 && Running == false )
 		return -1;
-		
+	map.Open("data/maps/first.m");
 	Running = true;
 	SDL_Color clr;
 	Coord dest;
@@ -75,8 +76,10 @@ int mainmain::Execute()
 	dest2.SetX(0);
 	dest2.SetY(0);
 	SDL_Surface *cursor;
+	SDL_Surface *tile;
 	image=m_pGraphics->LoadImage("data/images/kolobok.bmp"); 
 	cursor=m_pGraphics->LoadImage("data/gui_cursor.png"); 
+	tile=m_pGraphics->LoadImage("data/maps/1.png"); 
 	Coord CirclePos;
 	Uint8 *keys;
 	char fpss[10];
@@ -94,6 +97,7 @@ int mainmain::Execute()
 		SDL_FillRect(Screen, NULL, SDL_MapRGB(Screen->format, 0, 0, 0));
 		m_pGraphics->DrawIMGRect(image, CirclePos.GetRect() ,Screen);
 		//OnRender()
+		map.OnRender(tile,Screen);
 		m_pText->print_ttf(Screen, "SDL_ttf example", "data/courier.ttf", 46, clr, dest.GetRect());
 		m_pText->print_ttf(Screen,sfps , "data/courier.ttf", 15, clr2, dest2.GetRect());
 		m_pGraphics->DrawIMG(cursor, mouseposx,mouseposy, Screen);

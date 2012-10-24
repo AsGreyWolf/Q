@@ -14,7 +14,7 @@ class Map
     int tex;
     int mode;
     };
-    Tile tiles[10][100];
+    Tile tiles[501];
     int Open(char* path);
     int Clear();
     void OnRender(SDL_Surface *img,SDL_Surface *Screen);

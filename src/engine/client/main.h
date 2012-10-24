@@ -7,6 +7,7 @@
 #include "audio.h"
 #include "sound.h"
 #include "coords.h"
+#include "map.h"
 
 class mainmain
 {	
