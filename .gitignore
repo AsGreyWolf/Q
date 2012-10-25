@@ -1,3 +1,7 @@
 /src/build/
 /src/dist/
 /CMakeFiles/
+/game
+/~*
+/*.*~
+/.*~
