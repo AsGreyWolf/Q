@@ -1,6 +1,9 @@
 /src/build/
 /src/dist/
 /CMakeFiles/
+/CMakeCache.txt
+/cmake_install.cmake
+/Makefile
 /game
 ~*
 *.*~
