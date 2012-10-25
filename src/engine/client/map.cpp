@@ -2,6 +2,7 @@
 #define _MAP_CPP_
 #include "map.h"
 #include "graphics.h"
+#include "coords.h"
 int Map::Open(char* path){
 Clear();
 char a[100100]={0};
@@ -36,8 +37,8 @@ for(int i=0;i<100000;i++) {
       	loadedimg[tiles[tile].tex]=true;
       	}
        //cout<<tiles[tile].tex<<"x=";
-       tiles[tile].x= simv;
-       tiles[tile].y= str;
+       tiles[tile].x= simv-1;
+       tiles[tile].y= str-1;
        // cout<<tiles[tile].x<<"y=";
        //  cout<<tiles[tile].y<<":";
    	}
@@ -56,16 +57,16 @@ tiles[i].mode= 0;
 }
 return 1;
 }
-void Map::OnRender(SDL_Surface *Screen){
+void Map::OnRender(SDL_Surface *Screen, SDL_Rect Camera){
 	//Open("data/maps/first.m");
 	for(int i=0;i<50000;i++) {
 		if(tiles[i].tex!=0){
 		
 			SDL_Rect dest;
-			dest.x=(tiles[i].x-1)*640/16;
-			dest.y=(tiles[i].y-1)*640/16;
+			dest.x=Camera.x-640/2+maptopix(tiles[i].x,false);
+			dest.y=Camera.y-640/2+maptopix(tiles[i].y,true);
 			//cout<<"x="<<dest.x<<" y="<<dest.y<<"\n";
-			SDL_BlitSurface(imgs[tiles[i].tex], NULL, Screen, &dest);
+			DrawIMGRect(imgs[tiles[i].tex], dest,  Screen);
 			}
 		
 	}

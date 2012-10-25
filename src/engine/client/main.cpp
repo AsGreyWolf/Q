@@ -20,6 +20,7 @@ void mainmain::Quit( int returnCode )
 bool mainmain::Init() 
 {
 	timer=0;
+	lasttimer=0;
 	if ( SDL_Init( SDL_INIT_EVERYTHING ) < 0 )
 	{
 		fprintf( stderr, "SDL initialization failed: %s\n",
@@ -79,11 +80,15 @@ int mainmain::Execute()
 	image=LoadImage("data/images/kolobok.bmp"); 
 	cursor=LoadImage("data/gui_cursor.png"); 
 	Coord CirclePos;
+	Coord Camera;
 	Uint8 *keys;
 	char fpss[10];
 	CirclePos.SetX(2);
 	CirclePos.SetY(2);
-	
+	CirclePos.SetW(16);
+	CirclePos.SetH(16);
+	Camera.SetX(8);
+	Camera.SetY(8);
 	Sound* sound=new Sound;
 	sound->Load("1.wav");
 	sound->Play(1, 100);
@@ -95,7 +100,7 @@ int mainmain::Execute()
 		SDL_FillRect(Screen, NULL, SDL_MapRGB(Screen->format, 0, 0, 0));
 		DrawIMGRect(image, CirclePos.GetRect() ,Screen);
 		//OnRender()
-		map.OnRender(Screen);
+		map.OnRender(Screen,Camera.GetRect());
 		m_pText->print_ttf(Screen, "SDL_ttf example", "data/courier.ttf", 1, clr, dest.GetRect(),false,false);
 		m_pText->print_ttf(Screen,sfps , "data/courier.ttf", 0.3, clr2, dest2.GetRect(),true,true);
 		DrawIMG(cursor, mouseposx,mouseposy, Screen);
@@ -115,14 +120,19 @@ int mainmain::Execute()
 		}
 		//OnKeyDown()
 		keys = SDL_GetKeyState(NULL);
-		if(keys[SDLK_UP]){ CirclePos.SetY(CirclePos.GetY()-0.05); }
-		if(keys[SDLK_DOWN]){ CirclePos.SetY(CirclePos.GetY()+0.05); }
-		if(keys[SDLK_LEFT]){ CirclePos.SetX(CirclePos.GetX()-0.05); }
-		if(keys[SDLK_RIGHT]){ CirclePos.SetX(CirclePos.GetX()+0.05); }
+		if(keys[SDLK_UP]){ CirclePos.SetY(CirclePos.GetY()-(timer-lasttimer)*5);
+		 	Camera.SetY(Camera.GetY()-(timer-lasttimer)*5); }
+		if(keys[SDLK_DOWN]){ CirclePos.SetY(CirclePos.GetY()+(timer-lasttimer)*5);
+		 	Camera.SetY(Camera.GetY()+(timer-lasttimer)*5); }
+		if(keys[SDLK_LEFT]){ CirclePos.SetX(CirclePos.GetX()-(timer-lasttimer)*5);
+		 	Camera.SetX(Camera.GetX()-(timer-lasttimer)*5); }
+		if(keys[SDLK_RIGHT]){ CirclePos.SetX(CirclePos.GetX()+(timer-lasttimer)*5);
+		 	Camera.SetX(Camera.GetX()+(timer-lasttimer)*5); }
 		Frames++;
 		
 		{
 			int t = SDL_GetTicks();
+			lasttimer=timer;
 			timer += (t - T1) / 1000.0;
 			T1 = t;
 			if (t - T0 >= 1000) 

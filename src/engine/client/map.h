@@ -19,6 +19,6 @@ class Map
     bool loadedimg[50001];
     int Open(char* path);
     int Clear();
-    void OnRender(SDL_Surface *Screen);
+    void OnRender(SDL_Surface *Screen, SDL_Rect camera);
 };
 #endif

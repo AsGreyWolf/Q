@@ -3,7 +3,7 @@
 #include "graphics.h"
 #include <SDL.h> 
 #include "textrender.h"
-#include "player.h"
+//#include "player.h"
 #include "audio.h"
 #include "sound.h"
 #include "coords.h"
@@ -22,6 +22,7 @@ private:
 	SDL_Surface*    Screen;
 	SDL_Surface *image;
 	float timer;
+	float lasttimer;
 	bool Running;
 };
 #endif
