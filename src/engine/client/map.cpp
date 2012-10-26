@@ -63,8 +63,8 @@ void Map::OnRender(SDL_Surface *Screen, SDL_Rect Camera){
 		if(tiles[i].tex!=0){
 		
 			SDL_Rect dest;
-			dest.x=Camera.x-640/2+maptopix(tiles[i].x,false);
-			dest.y=Camera.y-640/2+maptopix(tiles[i].y,true);
+			dest.x=-Camera.x+640/2+maptopix(tiles[i].x,false);
+			dest.y=-Camera.y+640/2+maptopix(tiles[i].y,true);
 			//cout<<"x="<<dest.x<<" y="<<dest.y<<"\n";
 			DrawIMGRect(imgs[tiles[i].tex], dest,  Screen);
 			}
