@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
+#include <GL/gl.h>
+#include <GL/glu.h>
 using namespace std;
 class Map
 {
@@ -15,10 +17,10 @@ class Map
     int mode;
     };
     Tile tiles[50001];
-    SDL_Surface *imgs[50001];
+    GLuint imgs[50001];
     bool loadedimg[50001];
     int Open(char* path);
     int Clear();
-    void OnRender(SDL_Surface *Screen, SDL_Rect camera);
+    void OnRender(SDL_Surface *Screen, float camerax, float cameray, float cameraw, float camerah);
 };
 #endif

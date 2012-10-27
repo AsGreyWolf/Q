@@ -4,68 +4,58 @@
 
 int Coord::SetX(float v)
 {
-	width=640;
-	height=640;
-	x=v*width/16;
+	x=v/8*1.0f;
 }
 int Coord::SetY(float v)
 {
-	width=640;
-	height=640;
-	y=v*height/16;
+	y=v/8*1.0f;
 }
 int Coord::SetW(float v)
 {
-	width=640;
-	height=640;
-	w=v*width/16;
+	w=v/8*1.0f;
 }
 int Coord::SetH(float v)
 {
-	width=640;
-	height=640;
-	h=v*height/16;
+	h=v/8*1.0f;
 }
 float Coord::GetX()
 {
-	return x*16/width;
+	return x*8/1.0f;
 }
 float Coord::GetY()
 {
-	return y*16/height;
+	return y*8/1.0f;
 }
 float Coord::GetW()
 {
-	return 2*16/width;
+	return w*8/1.0f;
 }
 float Coord::GetH()
 {
-	return h*16/height;
+	return h*8/1.0f;
 }
-SDL_Rect Coord::GetRect()
-{
-	SDL_Rect dest;
-	dest.x = x;
-	dest.y = y;
-	dest.w = w;
-	dest.h = h;
-	return dest;
-}
-int localtopix(float v, bool height){
+float localtogl(float v, bool height){
 if(height){
-return v*640/16;
+return v/8*1.0f;
 }else{
-return v*640/16;
+return v/8*1.0f;
 }
 }
 int topoints(float v){
 return v*(43+16-v);
 }
-int maptopix(float v, bool height){
+float maptogl(float v, bool height){
 if(height){
-return v*640/16;
+return v/8*1.0f;
 }else{
-return v*640/16;
+return v/8*1.0f;
+}
+}
+float pixtogl(int v, bool height){
+if(height){
+return (float)v/320*1.0f;
+}else{
+return (float)v/320*1.0f;
 }
 }
 

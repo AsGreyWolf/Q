@@ -5,6 +5,37 @@
 using std::stringstream;
 #include <iostream>
 
+int mainmain::resizeWindow( int width, int height )
+{
+    GLfloat ratio;
+ 
+    /* Protect against a divide by zero */
+    if ( height == 0 )
+	height = 1;
+
+    ratio = ( GLfloat )width / ( GLfloat )height;
+
+    /* Setup our viewport. */
+    glViewport( 0, 0, ( GLint )width, ( GLint )height );
+
+    /*
+     * change to the projection matrix and set
+     * our viewing volume.
+     */
+    glMatrixMode( GL_PROJECTION );
+    glLoadIdentity( );
+
+    /* Set our perspective */
+    gluPerspective( 45.0f, ratio, 0.1f, 100.0f );
+
+    /* Make sure we're chaning the model view and not the projection */
+    glMatrixMode( GL_MODELVIEW );
+
+    /* Reset The View */
+    glLoadIdentity( ); 
+
+    return 1;
+}
 mainmain::mainmain() 
 {
 	Screen = NULL;
@@ -28,7 +59,7 @@ bool mainmain::Init()
 		Quit( 1 );
 	}
 	
-	Screen = SDL_SetVideoMode(640,640,32,SDL_HWSURFACE|SDL_DOUBLEBUF); 
+	Screen = SDL_SetVideoMode(640,640,32,SDL_HWSURFACE|SDL_DOUBLEBUF|SDL_OPENGL|SDL_GL_DOUBLEBUFFER|SDL_HWPALETTE); 
 	
 	if ( !Screen )
 	{
@@ -36,8 +67,31 @@ bool mainmain::Init()
 		Quit( 1 );
 	}
 	SDL_WM_SetCaption("ololo game","v1");
+	SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
+	 glEnable( GL_TEXTURE_2D );
+
+    /* Enable smooth shading */
+    glShadeModel( GL_SMOOTH );
+
+    /* Set the background black */
+    glClearColor( 0.0f, 0.0f, 0.0f, 0.5f );
+
+    /* Depth buffer setup */
+    glClearDepth( 1.0f );
+
+    /* Enables Depth Testing */
+    glEnable( GL_DEPTH_TEST );
+
+    /* The Type Of Depth Test To Do */
+    glDepthFunc( GL_LEQUAL );
+
+    /* Really Nice Perspective Calculations */
+    glHint( GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST );
+    glEnable (GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+      resizeWindow(640,640);
 	//Init()    	
-	
+	//glTranslatef(-6.0f,0.0f,-6.0f);
 	if(m_pText->Init() == 0 && Running == false )
 		return -1;
 		
@@ -76,34 +130,43 @@ int mainmain::Execute()
 	Coord dest2;
 	dest2.SetX(16);
 	dest2.SetY(16);
-	SDL_Surface *cursor;
-	image=LoadImage("data/images/kolobok.bmp"); 
-	cursor=LoadImage("data/gui_cursor.png"); 
+	GLuint cursor;
+	image=LoadImage("data/images/kolobok.bmp",1); 
+	cursor=LoadImage("data/gui_cursor.png",0); 
 	Coord CirclePos;
 	Coord Camera;
 	Uint8 *keys;
 	char fpss[10];
 	CirclePos.SetX(2);
 	CirclePos.SetY(2);
-	CirclePos.SetW(16);
-	CirclePos.SetH(16);
+	CirclePos.SetW(2);
+	CirclePos.SetH(2);
+	Camera.SetW(16);
+	Camera.SetH(16);
 	Camera.SetX(8);
 	Camera.SetY(8);
 	Sound* sound=new Sound;
 	sound->Load("1.wav");
 	sound->Play(1, 100);
 	bool playing=true;
+	 //glTranslatef(-1.5f,0.0f,-6.0f);  
 	while(Running) 
 	{
 		SDL_GetMouseState(&mouseposx, &mouseposy);
 		//OnCleanUp()
-		SDL_FillRect(Screen, NULL, SDL_MapRGB(Screen->format, 0, 0, 0));
-		DrawIMGRect(image, CirclePos.GetRect() ,Screen);
+		//SDL_FillRect(Screen, NULL, SDL_MapRGB(Screen->format, 0, 0, 0));
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+              // очистка Экрана и буфера глубины
+        	glLoadIdentity();
+              // Сброс просмотра
+              glTranslatef( -1.0f, 1.0f, -3.4f );
+		DrawIMG(image, CirclePos.x,CirclePos.y,CirclePos.w,CirclePos.h);
 		//OnRender()
-		map.OnRender(Screen,Camera.GetRect());
-		m_pText->print_ttf(Screen, "SDL_ttf example", "data/courier.ttf", 1, clr, dest.GetRect(),false,false);
-		m_pText->print_ttf(Screen,sfps , "data/courier.ttf", 0.3, clr2, dest2.GetRect(),true,true);
-		DrawIMG(cursor, mouseposx,mouseposy, Screen);
+		map.OnRender(Screen,Camera.x,Camera.y,Camera.w,Camera.h);
+		m_pText->print_ttf("SDL_ttf example", "data/courier.ttf", 1, clr, dest.x, dest.y,false,false);
+		m_pText->print_ttf(sfps , "data/courier.ttf", 0.3, clr2, dest2.x, dest2.y,true,true);
+		DrawIMG(cursor, pixtogl(mouseposx,false),pixtogl(mouseposy,true),localtogl(1, false),localtogl(1, true) );
+		SDL_GL_SwapBuffers( );
 		if(!sound->IsPlaying() && playing){
 		playing=false;
 		sound->UnLoad();

@@ -16,22 +16,26 @@ int TextRender::Init()
 	return 1;
 }
 
-void TextRender::print_ttf(SDL_Surface *sDest, char* message, char* font, float size, SDL_Color color, SDL_Rect dest, bool righttoleft,bool downtoup)
+void TextRender::print_ttf(char* message, char* font, float size, SDL_Color color, float x,float y, bool righttoleft, bool downtoup)
 {
 	TTF_Font *fnt = TTF_OpenFont(font, topoints(size));
-	SDL_Rect dest2;
 	SDL_Surface *sText = TTF_RenderText_Blended( fnt, message, color);
-	int w,h;
-	TTF_SizeText(fnt,message,&w,&h);
+	int ww,hh;
+	float w,h;
+	TTF_SizeText(fnt,message,&ww,&hh);
+	w=pixtogl(ww,false);
+	h=pixtogl(hh,true);
 	if(righttoleft)
-	dest2.x=dest.x-w;
+	x=x-w;
 	else
-	dest2.x=dest.x;
+	x=x;
 	if(downtoup)
-	dest2.y=dest.y-h;
+	y=y-h;
 	else
-	dest2.y=dest.y;
-	SDL_BlitSurface( sText,NULL, sDest,&dest2 );
+	y=y;
+	//printf("rendered x=%f, y=%f, w=%f, h=%f\n",x,-y,w,h);
+	DrawIMG(GetTex(sText,1), x, y, w, h);
+	
 	SDL_FreeSurface( sText );
 	TTF_CloseFont( fnt );
 

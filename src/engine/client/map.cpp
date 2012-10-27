@@ -32,7 +32,7 @@ for(int i=0;i<100000;i++) {
        tiles[tile].tex=(a[i]-'0');
        if(!loadedimg[tiles[tile].tex]){
        sprintf(texfolder,"data/maps/%sap/%d.png",name,tiles[tile].tex);
-      	imgs[tiles[tile].tex]=LoadImage(texfolder);
+      	imgs[tiles[tile].tex]=LoadImage(texfolder,0);
       	cout<<tiles[tile].tex<<" texture loaded:path "<< texfolder<<"\n";
       	loadedimg[tiles[tile].tex]=true;
       	}
@@ -57,17 +57,18 @@ tiles[i].mode= 0;
 }
 return 1;
 }
-void Map::OnRender(SDL_Surface *Screen, SDL_Rect Camera){
+void Map::OnRender(SDL_Surface *Screen, float camerax, float cameray, float cameraw, float camerah){
 	//Open("data/maps/first.m");
 	for(int i=0;i<50000;i++) {
 		if(tiles[i].tex!=0){
 		
-			SDL_Rect dest;
-			dest.x=-Camera.x+640/2+maptopix(tiles[i].x,false);
-			dest.y=-Camera.y+640/2+maptopix(tiles[i].y,true);
-			if(dest.x>maptopix(-1,false) && dest.x<maptopix(16,false) && dest.y>maptopix(-1,true) && dest.y<maptopix(16,true))
+			float x=-camerax+cameraw/2+maptogl(tiles[i].x,false);
+			float y=-cameray+camerah/2+maptogl(tiles[i].y,true);
+			float w=maptogl(1,false);
+			float h=maptogl(1,true);
+			if(x>maptogl(-1,false) && x<maptogl(16,false) && y>maptogl(-1,true) && y<maptogl(16,true))
 			//cout<<"x="<<dest.x<<" y="<<dest.y<<"\n";
-			DrawIMGRect(imgs[tiles[i].tex], dest,  Screen);
+			DrawIMG(imgs[tiles[i].tex], x,y,w,h);
 			}
 		
 	}

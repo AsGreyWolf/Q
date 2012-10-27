@@ -2,6 +2,8 @@
 #define _MAIN_H_  
 #include "graphics.h"
 #include <SDL.h> 
+#include <GL/gl.h>
+#include <GL/glu.h>
 #include "textrender.h"
 //#include "player.h"
 #include "audio.h"
@@ -15,12 +17,13 @@ public:
 	mainmain();
 	int Execute();
 	bool Init();
-	void Quit( int returnCode );		
+	void Quit( int returnCode );
+	int resizeWindow( int width, int height );		
 	//class Graphics *m_pGraphics;
 	class TextRender *m_pText;
 private:
 	SDL_Surface*    Screen;
-	SDL_Surface *image;
+	GLuint image;
 	float timer;
 	float lasttimer;
 	bool Running;

@@ -17,12 +17,9 @@ public:
 	float y;
 	float w;
 	float h;
-	SDL_Rect GetRect();
-private:
-	int width;
-	int height;
 };
-int localtopix(float v, bool height);
-int maptopix(float v, bool height);
+float localtogl(float v, bool height);
+float maptogl(float v, bool height);
+float pixtogl(int v, bool height);
 int topoints(float v);
 #endif

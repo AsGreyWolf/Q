@@ -3,13 +3,14 @@
   
 #include <SDL.h>
 #include <SDL/SDL_image.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 
 
-	SDL_Surface *LoadImage(char* image);
-	void DrawIMG(SDL_Surface *img, int x, int y ,SDL_Surface *screen);
-	void DrawIMGRect(SDL_Surface *img, SDL_Rect dest ,SDL_Surface *screen);
-
+	GLuint LoadImage(char* image, int mode);
+	void DrawIMG(GLuint img, float x, float y, float w, float h);
+	GLuint GetTex( SDL_Surface* image, int mode);
 #endif
