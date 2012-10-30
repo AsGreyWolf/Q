@@ -1,8 +1,15 @@
 #ifndef _GRAPHICS_H_
 #define _GRAPHICS_H_
-  
-#include <SDL.h>
-#include <SDL/SDL_image.h>
+
+# ifdef __gnu_linux__  
+
+#include <include/lin_x64/SDL.h>
+#include <include/lin_x64/SDL_image.h>
+
+# else
+#include <include/win_32/SDL.h>
+#include <include/win_32/SDL_image.h>
+# endif
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <stdio.h>

@@ -1,6 +1,12 @@
 #ifndef _COORDS_H_
 #define _COORDS_H_  
-#include "SDL/SDL.h"
+# ifdef __gnu_linux__  
+
+#include <include/lin_x64/SDL.h>
+
+# else
+#include <include/win_32/SDL.h>
+# endif
 
 class Coord
 {

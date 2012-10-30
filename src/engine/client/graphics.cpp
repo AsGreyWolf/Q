@@ -31,7 +31,7 @@ GLuint GetTex( SDL_Surface* image,int mode)
 	    		if(mode==0){
 	    			f=GL_RGBA;
 	    		}else{
-	    			f=GL_BGRA;
+	    			f=32993;
 	    		}
       			gluBuild2DMipmaps(GL_TEXTURE_2D, 4,
          		NewSurface->w, NewSurface->h, f,GL_UNSIGNED_BYTE, NewSurface->pixels);
@@ -42,7 +42,7 @@ GLuint GetTex( SDL_Surface* image,int mode)
 	    		if(mode==0){
 	    			f=GL_RGB;
 	    		}else{
-	    			f=GL_BGR;
+	    			f=32992;
 	    		}
      			gluBuild2DMipmaps(GL_TEXTURE_2D, 3,
          		NewSurface->w, NewSurface->h, f, GL_UNSIGNED_BYTE, NewSurface->pixels);
@@ -90,7 +90,7 @@ GLuint LoadImage(char* image,int mode)
 	    		if(mode==0){
 	    			f=GL_RGBA;
 	    		}else{
-	    			f=GL_BGRA;
+	    			f=32993;
 	    		}
       			gluBuild2DMipmaps(GL_TEXTURE_2D, 4,
          		NewSurface->w, NewSurface->h, f,GL_UNSIGNED_BYTE, NewSurface->pixels);
@@ -101,7 +101,7 @@ GLuint LoadImage(char* image,int mode)
 	    		if(mode==0){
 	    			f=GL_RGB;
 	    		}else{
-	    			f=GL_BGR;
+	    			f=32992;
 	    		}
      			gluBuild2DMipmaps(GL_TEXTURE_2D, 3,
          		NewSurface->w, NewSurface->h, f, GL_UNSIGNED_BYTE, NewSurface->pixels);
