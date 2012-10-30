@@ -1,7 +1,13 @@
 #ifndef _MAIN_H_
 #define _MAIN_H_  
 #include "graphics.h"
-#include <SDL.h> 
+# ifdef __gnu_linux__  
+
+#include <include/lin_x64/SDL.h>
+
+# else
+#include <include/win_32/SDL.h>
+# endif
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include "textrender.h"

@@ -3,14 +3,13 @@
 #include "map.h"
 #include "graphics.h"
 #include "coords.h"
-int Map::Open(char* path){
+int Map::Open(char* path,char* name){
 Clear();
 char a[100100]={0};
 int str=1;
 int simv=1;
 int tile=1;
 char texfolder[112];
-const char *name=basename(path);
 ifstream file(path);
 file.getline(a,100000);
 for(int i=0;i<100000;i++) {
@@ -31,7 +30,7 @@ for(int i=0;i<100000;i++) {
 	tile++;
        tiles[tile].tex=(a[i]-'0');
        if(!loadedimg[tiles[tile].tex]){
-       sprintf(texfolder,"data/maps/%sap/%d.png",name,tiles[tile].tex);
+       sprintf(texfolder,"data/maps/%s/%d.png",name,tiles[tile].tex);
       	imgs[tiles[tile].tex]=LoadImage(texfolder,0);
       	cout<<tiles[tile].tex<<" texture loaded:path "<< texfolder<<"\n";
       	loadedimg[tiles[tile].tex]=true;

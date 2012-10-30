@@ -1,6 +1,12 @@
 #ifndef _MAP_H_
 #define _MAP_H_
-#include <SDL.h>
+# ifdef __gnu_linux__  
+
+#include <include/lin_x64/SDL.h>
+
+# else
+#include <include/win_32/SDL.h>
+# endif
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
@@ -19,7 +25,7 @@ class Map
     Tile tiles[50001];
     GLuint imgs[50001];
     bool loadedimg[50001];
-    int Open(char* path);
+    int Open(char* path,char* name);
     int Clear();
     void OnRender(SDL_Surface *Screen, float camerax, float cameray, float cameraw, float camerah);
 };

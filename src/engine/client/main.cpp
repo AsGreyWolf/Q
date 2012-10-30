@@ -112,7 +112,7 @@ int mainmain::Execute()
 		
 	if(m_pAudio->Init() == 0 && Running == false )
 		return -1;
-	map.Open("data/maps/first.m");
+	map.Open("data/maps/first.m","first");
 	Running = true;
 	SDL_Color clr;
 	Coord dest;
@@ -213,8 +213,12 @@ int mainmain::Execute()
 	Quit(0);
 	return 0;
 }
- 
+#ifdef _WIN32
+#include <windows.h>
+int WINAPI WinMain (HINSTANCE, HINSTANCE, LPSTR, int)
+#else
 int main(int argc, char* argv[]) 
+#endif
 {
 	mainmain main0;
 
