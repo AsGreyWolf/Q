@@ -3,10 +3,10 @@
 ping -n 2 localhost >nul
 color 0a
 @echo === Generating makefile ===
-set Path=C:\MinGW\bin
-set Path=%PATH%;C:\cppproject\cmake\bin
+set Path=C:\путьдоmingw\bin
+set Path=%PATH%;C:\путьдоcmake\bin
 set Path=%PATH%;%SystemRoot%\System32
-@call cmake.exe -G "MinGW Makefiles" CMakeLists.txt
+@call C:\путьдоcmake\bin\cmake.exe -G "MinGW Makefiles" CMakeLists.txt
 @echo === Building The Game ===
 ping -n 1 localhost >nul
 @call mingw32-make.exe
