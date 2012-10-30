@@ -1,8 +1,17 @@
 #ifndef _TEXTRENDER_H_
 #define _TEXTRENDER_H_
 
-#include <SDL.h>
-#include <SDL_ttf.h>
+# ifdef __gnu_linux__  
+
+#include <include/lin_x64/SDL.h>
+#include <include/lin_x64/SDL_ttf.h>
+#include <include/lin_x64/SDL_image.h>
+
+# else
+#include <include/win_32/SDL.h>
+#include <include/win_32/SDL_ttf.h>
+#include <include/win_32/SDL_image.h>
+# endif
 #include "graphics.h"
 
  
