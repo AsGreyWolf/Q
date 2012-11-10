@@ -5,6 +5,7 @@
 /cmake_install.cmake
 /Makefile
 /game
+/game.exe
 ~*
 *.*~
 .*~
